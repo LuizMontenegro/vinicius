@@ -10,11 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --brand: #22d3ee; /* ciano neon */
-      --brand-2: #22c55e; /* verde pump */
-      --ink: #0f172a; /* slate-900 */
-      --ink-2: #0b1226; /* ainda mais escuro */
-      --accent: #fb7185; /* rosa pump */
+      --brand: #22d3ee;
+      --brand-2: #22c55e;
+      --ink: #0f172a;
+      --ink-2: #0b1226;
+      --accent: #fb7185;
     }
     html, body { height: 100%; }
     body {
@@ -25,47 +25,48 @@
       color: #e5e7eb;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
     }
-    .title {
-      font-family: Anton, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-      letter-spacing: 0.5px;
-    }
+    .title { font-family: Anton, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; letter-spacing: 0.5px; }
     .glass {
       background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
       border: 1px solid rgba(255,255,255,0.08);
       backdrop-filter: blur(8px);
+      transition: transform .35s ease, box-shadow .35s ease;
     }
-    .neon {
-      text-shadow: 0 0 12px rgba(34,211,238,0.55), 0 0 28px rgba(34,211,238,0.35);
-    }
+    .glass:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .neon { text-shadow: 0 0 12px rgba(34,211,238,0.55), 0 0 28px rgba(34,211,238,0.35); }
+
     .btn {
       transition: transform .15s ease, filter .2s ease, opacity .2s ease;
       will-change: transform, filter;
+      position: relative; overflow: hidden;
     }
     .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
-    .chip {
-      background: linear-gradient(90deg, rgba(34,211,238,0.15), rgba(34,197,94,0.15));
-      border: 1px solid rgba(255,255,255,0.12);
+    #btnHeroCta::after, #btnNavCta::after, #btnFooterCta::after, #videoToForm::after {
+      content: ""; position: absolute; top: -60%; left: -30%; width: 40%; height: 220%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.55), transparent);
+      transform: translateX(-160%) rotate(12deg);
     }
-    .ring-glow {
-      box-shadow: 0 0 0 6px rgba(34,211,238,0.2);
-    }
-    .grid-auto {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 1.25rem;
-    }
-    .tag-demo {
-      font-size: 10px;
-      letter-spacing: .12em;
-      opacity: .8;
-    }
-    /* Simple keyframes */
+    #btnHeroCta:hover::after, #btnNavCta:hover::after, #btnFooterCta:hover::after, #videoToForm:hover::after { animation: shine .9s ease; }
+    #btnHeroCta, #btnNavCta { box-shadow: 0 0 0 0 rgba(34,211,238,.35); animation: pulseGlow 2.4s ease-in-out infinite; }
+
+    .chip { background: linear-gradient(90deg, rgba(34,211,238,0.15), rgba(34,197,94,0.15)); border: 1px solid rgba(255,255,255,0.12); }
+    .ring-glow { box-shadow: 0 0 0 6px rgba(34,211,238,0.2); }
+    .grid-auto { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1.25rem; }
+    .tag-demo { font-size: 10px; letter-spacing: .12em; opacity: .8; }
+
     @keyframes floaty { from { transform: translateY(0) } to { transform: translateY(-6px) } }
     .floaty { animation: floaty 2.2s ease-in-out infinite alternate }
 
-    /* Ensure native dropdown options are readable while keeping the field dark */
+    @keyframes shine { to { transform: translateX(280%) rotate(12deg); } }
+    @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(34,211,238,.0) } 50% { box-shadow: 0 0 0 10px rgba(34,211,238,.07) } }
+
+    .reveal { opacity: 0; transform: translateY(16px) scale(.98); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0) scale(1); }
+
+    .floaty svg path:first-of-type { stroke-dasharray: 450; stroke-dashoffset: 450; animation: draw 2.2s ease forwards 0.2s; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
     select option, select optgroup { color: #0f172a; background-color: #f8fafc; }
-    /* Improve highlight color on selection in some browsers */
     @supports (-webkit-appearance:none) or (-moz-appearance:none) {
       select option:checked { background-color: #e2e8f0; }
     }
@@ -73,11 +74,10 @@
 </head>
 <body class="antialiased">
   <!-- Nav -->
-  <header class="sticky top-0 z-30 backdrop-blur bg-black/30 border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
+  <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center gap-3 flex-nowrap">
+      <div class="flex items-center gap-3 flex-shrink-0">
         <div class="h-9 w-9 rounded-lg bg-cyan-400/20 ring-1 ring-cyan-400/40 grid place-items-center">
-          <!-- Kettlebell SVG -->
           <svg width="20" height="20" viewBox="0 0 24 24" class="text-cyan-300" fill="currentColor" aria-hidden="true">
             <path d="M8 7a4 4 0 1 1 8 0v1h-2V7a2 2 0 1 0-4 0v1H8V7z"></path>
             <path d="M6 10a6 6 0 1 1 12 0v6a6 6 0 1 1-12 0v-6z"></path>
@@ -88,22 +88,33 @@
           <p class="text-xs text-cyan-300/80 uppercase tag-demo">Personal Trainer</p>
         </div>
       </div>
-      <nav class="hidden md:flex items-center gap-6 text-sm">
+      <nav class="hidden md:flex items-center gap-4 text-sm flex-wrap mx-auto">
         <a href="#beneficios" class="text-gray-300 hover:text-white">Benefícios</a>
         <a href="#planos" class="text-gray-300 hover:text-white">Planos</a>
-        <a href="#transformacoes" class="text-gray-300 hover:text-white">Transformações</a>
+        <a href="#sobre-mim" class="text-gray-300 hover:text-white">Sobre mim</a>
         <a href="#contato" class="text-gray-300 hover:text-white">Contato</a>
         <a href="#faq" class="text-gray-300 hover:text-white">FAQ</a>
       </nav>
-      <button id="btnNavCta" class="btn hidden sm:inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold">
-        <span>Agendar consulta 💪</span>
+      <div class="ml-auto"></div>
+      <button id="btnNavCta" class="btn inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold whitespace-nowrap">
+        <span>Agendar consulta</span>
       </button>
     </div>
   </header>
 
+  <!-- Partículas -->
+  <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <svg viewBox="0 0 800 600" class="w-full h-full opacity-30">
+      <defs><radialGradient id="p" r="1"><stop offset="0%" stop-color="#22d3ee" stop-opacity=".7" /><stop offset="100%" stop-color="#22d3ee" stop-opacity="0" /></radialGradient></defs>
+      <circle cx="120" cy="140" r="80" fill="url(#p)"><animate attributeName="cx" values="120;720;120" dur="18s" repeatCount="indefinite" /><animate attributeName="cy" values="140;460;140" dur="22s" repeatCount="indefinite" /></circle>
+      <circle cx="680" cy="420" r="70" fill="url(#p)"><animate attributeName="cx" values="680;100;680" dur="20s" repeatCount="indefinite" /><animate attributeName="cy" values="420;180;420" dur="17s" repeatCount="indefinite" /></circle>
+      <circle cx="400" cy="300" r="90" fill="url(#p)"><animate attributeName="r" values="60;100;60" dur="14s" repeatCount="indefinite" /></circle>
+    </svg>
+  </div>
+
   <!-- Hero -->
   <section class="relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 pt-14 pb-10 md:pt-20 md:pb-16 grid-auto items-center">
+    <div class="max-w-7xl mx-auto px-6 pt-14 pb-10 md:pt-20 md:pb-16 grid-auto items-center reveal">
       <div class="col-span-12 md:col-span-7">
         <div class="inline-flex items-center gap-2 chip rounded-full px-3 py-1 text-xs text-cyan-200">
           <span class="h-2 w-2 rounded-full bg-emerald-400 inline-block"></span>
@@ -122,49 +133,33 @@
           </button>
         </div>
         <div class="mt-6 flex items-center gap-6 text-sm text-gray-300">
-          <div class="flex items-center gap-2">
-            <span class="text-emerald-400">⬤</span> Acompanhamento semanal
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-cyan-400">⬤</span> Treino sob medida
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-pink-400">⬤</span> 100% focado no seu objetivo
-          </div>
+          <div class="flex items-center gap-2"><span class="text-emerald-400">⬤</span> Acompanhamento semanal</div>
+          <div class="flex items-center gap-2"><span class="text-cyan-400">⬤</span> Treino sob medida</div>
+          <div class="flex items-center gap-2"><span class="text-pink-400">⬤</span> 100% focado no seu objetivo</div>
         </div>
       </div>
 
-      <!-- Visual Hero Card -->
+      <!-- Card visual ao lado -->
       <div class="col-span-12 md:col-span-5">
         <div class="glass rounded-3xl p-6 md:p-8 relative overflow-hidden floaty">
           <div class="absolute -top-12 -right-12 h-48 w-48 rounded-full bg-cyan-400/20 blur-2xl"></div>
           <div class="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-emerald-400/20 blur-2xl"></div>
 
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm text-gray-300">Semana 8</p>
-              <p class="text-3xl font-extrabold text-white">+4.2kg massa magra</p>
-              <p class="text-emerald-300 text-sm">BF -2.9%</p>
-            </div>
-            <div class="rounded-xl px-3 py-1 bg-emerald-400/20 text-emerald-200 ring-1 ring-emerald-400/30">
-              Em alta 🔥
+          <div class="flex items-center justify-center">
+            <div class="w-full select-none">
+              <div class="w-full rounded-2xl overflow-hidden border border-white/10 shadow">
+                <img
+                  src="Gemini_Generated_Image_f35caqf35caqf35c.png"
+                  alt="Imagem do Team Taurus"
+                  class="w-full h-72 md:h-96 object-cover"
+                  loading="lazy"
+                  onerror="this.src=''; this.alt='Imagem não carregou'; this.style.display='none';"
+                />
+              </div>
             </div>
           </div>
 
-          <!-- Mini chart -->
-          <div class="mt-6">
-            <svg viewBox="0 0 320 120" class="w-full h-28 text-cyan-300">
-              <defs>
-                <linearGradient id="grad" x1="0" x2="1">
-                  <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.8"/>
-                  <stop offset="100%" stop-color="#22c55e" stop-opacity="0.8"/>
-                </linearGradient>
-              </defs>
-              <path d="M10 90 C 60 60, 100 70, 140 55 S 240 35, 310 30" fill="none" stroke="url(#grad)" stroke-width="4" />
-              <circle cx="140" cy="55" r="5" fill="#22d3ee"/>
-              <circle cx="310" cy="30" r="6" fill="#22c55e" class="ring-glow"/>
-            </svg>
-          </div>
+          
 
           <div class="mt-6 grid grid-cols-3 gap-3 text-sm">
             <div class="rounded-xl p-4 bg-white/5 border border-white/10">
@@ -191,11 +186,9 @@
       <h2 class="title text-3xl md:text-5xl text-white">Simples, Direto e que Funciona</h2>
       <p class="text-gray-300 mt-3">Sem frescura: treino inteligente, execução correta e consistência.</p>
     </div>
-    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <!-- Card -->
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal">
       <div class="glass rounded-2xl p-6">
         <div class="h-10 w-10 grid place-items-center rounded-lg bg-cyan-400/20 text-cyan-300 mb-4">
-          <!-- Dumbbell -->
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M3 10h2v4H3v-4zm16 0h2v4h-2v-4zM7 8h2v8H7V8zm8 0h2v8h-2V8zM10 11h4v2h-4v-2z"/></svg>
         </div>
         <p class="text-white font-semibold">Treino sob medida</p>
@@ -203,7 +196,6 @@
       </div>
       <div class="glass rounded-2xl p-6">
         <div class="h-10 w-10 grid place-items-center rounded-lg bg-emerald-400/20 text-emerald-300 mb-4">
-          <!-- Check icon -->
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 16.2l-3.5-3.5L4 14.2l5 5 11-11-1.4-1.4z"/></svg>
         </div>
         <p class="text-white font-semibold">Técnica e execução</p>
@@ -211,7 +203,6 @@
       </div>
       <div class="glass rounded-2xl p-6">
         <div class="h-10 w-10 grid place-items-center rounded-lg bg-pink-400/20 text-pink-300 mb-4">
-          <!-- Heart pulse -->
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21 8.5c0 5.5-9 12-9 12S3 14 3 8.5A4.5 4.5 0 0 1 7.5 4C9.2 4 10.7 4.8 12 6c1.3-1.2 2.8-2 4.5-2A4.5 4.5 0 0 1 21 8.5z"/></svg>
         </div>
         <p class="text-white font-semibold">Saúde em dia</p>
@@ -219,7 +210,6 @@
       </div>
       <div class="glass rounded-2xl p-6">
         <div class="h-10 w-10 grid place-items-center rounded-lg bg-yellow-400/20 text-yellow-300 mb-4">
-          <!-- Clock -->
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2zm1 11h5v-2h-4V7h-2v6z"/></svg>
         </div>
         <p class="text-white font-semibold">Cabe na agenda</p>
@@ -228,56 +218,15 @@
     </div>
   </section>
 
-  <!-- Transformações (demo visual) -->
-  <section id="transformacoes" class="max-w-7xl mx-auto px-6 py-14 md:py-20">
+  <!-- Sobre mim -->
+  <section id="sobre-mim" class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
     <div class="text-center mb-10">
-      <h2 class="title text-3xl md:text-5xl text-white">Transformações</h2>
-      <p class="text-gray-300 mt-3">Alguns cenários do que rola com consistência.</p>
+      <h2 class="title text-3xl md:text-5xl text-white">Sobre mim</h2>
+      <p class="text-gray-300 mt-3 max-w-2xl mx-auto">Educador físico formado pela UNIESP, com projetos voluntários na UFPB, especialista em spinning, alongamentos e treinos personalizados.</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <!-- Silhueta Cards -->
-      <div class="glass rounded-2xl p-5">
-        <p class="text-sm text-gray-300 mb-3">Hipertrofia</p>
-        <div class="aspect-[4/3] rounded-xl bg-gradient-to-br from-white/5 to-white/0 grid place-items-center border border-white/10 overflow-hidden">
-          <svg viewBox="0 0 200 150" class="w-full h-full">
-            <!-- antes -->
-            <rect x="22" y="30" width="55" height="90" rx="10" fill="rgba(34,211,238,0.20)" />
-            <!-- depois -->
-            <rect x="120" y="20" width="60" height="110" rx="12" fill="rgba(34,197,94,0.25)" />
-            <!-- setas -->
-            <path d="M90 75 h20" stroke="rgba(255,255,255,0.4)" stroke-width="3" />
-            <path d="M110 75 l-6 -6 M110 75 l-6 6" stroke="rgba(255,255,255,0.4)" stroke-width="3" />
-          </svg>
-        </div>
-        <p class="text-gray-300 text-sm mt-3">Aumento de massa com definição.</p>
-      </div>
-      <div class="glass rounded-2xl p-5">
-        <p class="text-sm text-gray-300 mb-3">Perda de Gordura</p>
-        <div class="aspect-[4/3] rounded-xl bg-gradient-to-br from-white/5 to-white/0 grid place-items-center border border-white/10 overflow-hidden">
-          <svg viewBox="0 0 200 150" class="w-full h-full">
-            <circle cx="50" cy="75" r="34" fill="rgba(251,113,133,0.25)" />
-            <circle cx="148" cy="75" r="24" fill="rgba(34,211,238,0.28)" />
-            <path d="M90 75 h20" stroke="rgba(255,255,255,0.4)" stroke-width="3" />
-            <path d="M110 75 l-6 -6 M110 75 l-6 6" stroke="rgba(255,255,255,0.4)" stroke-width="3" />
-          </svg>
-        </div>
-        <p class="text-gray-300 text-sm mt-3">Redução de BF com manutenção muscular.</p>
-      </div>
-      <div class="glass rounded-2xl p-5">
-        <p class="text-sm text-gray-300 mb-3">Performance</p>
-        <div class="aspect-[4/3] rounded-xl bg-gradient-to-br from-white/5 to-white/0 grid place-items-center border border-white/10 overflow-hidden">
-          <svg viewBox="0 0 200 150" class="w-full h-full">
-            <polyline points="20,110 60,80 100,95 140,70 180,60" fill="none" stroke="url(#g2)" stroke-width="5"/>
-            <defs>
-              <linearGradient id="g2" x1="0" x2="1">
-                <stop offset="0%" stop-color="#22d3ee"/>
-                <stop offset="100%" stop-color="#22c55e"/>
-              </linearGradient>
-            </defs>
-            <circle cx="180" cy="60" r="6" fill="#22c55e" />
-          </svg>
-        </div>
-        <p class="text-gray-300 text-sm mt-3">Mais carga, mais reps, mais performance.</p>
+    <div class="max-w-3xl mx-auto">
+      <div class="glass rounded-3xl p-6 md:p-8 text-center">
+        <p class="text-gray-300 leading-relaxed">Sou educador físico formado pela UNIESP, com experiência em projetos voluntários na UFPB. Atuo como especialista em spinning, alongamentos e treinos personalizados para diferentes objetivos e níveis. Meu foco é alinhar técnica e constância para construir resultados reais, no seu ritmo.</p>
       </div>
     </div>
   </section>
@@ -289,8 +238,7 @@
       <p class="text-gray-300 mt-3">Comece com o que faz sentido pra você. Crescemos juntos.</p>
     </div>
 
-    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Plano 1 -->
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
       <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px]">
         <div class="flex items-center justify-between">
           <p class="text-white font-semibold">Essencial</p>
@@ -305,7 +253,6 @@
         <button data-open-form="Essencial" class="btn mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
       </div>
 
-      <!-- Plano 2 -->
       <div class="glass rounded-3xl p-6 flex flex-col ring-1 ring-cyan-400/30 min-h-[360px]">
         <div class="flex items-center justify-between">
           <p class="text-white font-semibold">Performance</p>
@@ -320,7 +267,6 @@
         <button data-open-form="Performance" class="btn mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
       </div>
 
-      <!-- Plano 3 -->
       <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px]">
         <div class="flex items-center justify-between">
           <p class="text-white font-semibold">Elite</p>
@@ -338,13 +284,13 @@
   </section>
 
   <!-- Depoimentos -->
-  <section class="max-w-7xl mx-auto px-6 py-14 md:py-20">
+  <section class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
     <div class="text-center mb-8">
       <h2 class="title text-3xl md:text-5xl text-white">O que a galera fala</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
       <div class="glass rounded-2xl p-5">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-shrink-0">
           <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">🏋️</div>
           <div>
             <p class="text-white font-semibold">Bruno</p>
@@ -354,7 +300,7 @@
         <p class="text-gray-300 text-sm mt-3">“3 meses já bati PR em agacho e supino. Direto, sem papo furado.”</p>
       </div>
       <div class="glass rounded-2xl p-5">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-shrink-0">
           <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">💪</div>
           <div>
             <p class="text-white font-semibold">Larissa</p>
@@ -364,7 +310,7 @@
         <p class="text-gray-300 text-sm mt-3">“Treinos objetivos, técnica ajustada. Resultado veio.”</p>
       </div>
       <div class="glass rounded-2xl p-5">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-shrink-0">
           <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">⚡</div>
           <div>
             <p class="text-white font-semibold">Diego</p>
@@ -421,7 +367,6 @@
   <section id="faq" class="max-w-4xl mx-auto px-6 py-14 md:py-20">
     <h2 class="title text-3xl md:text-5xl text-white text-center">Dúvidas Frequentes</h2>
     <div class="mt-8 space-y-4">
-      <!-- Item -->
       <details class="glass rounded-2xl p-5 group">
         <summary class="flex items-center justify-between cursor-pointer list-none">
           <span class="text-white font-semibold">Preciso de academia?</span>
@@ -450,7 +395,7 @@
   <footer class="border-t border-white/10">
     <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
       <p class="text-gray-400 text-sm">© <span id="year"></span> Vinícius Azevedo. Todos os direitos reservados.</p>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 flex-shrink-0">
         <button id="btnFooterCta" class="btn rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10">Começar agora</button>
         <a id="whatsLink" href="#" class="btn rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold">Falar no WhatsApp</a>
       </div>
@@ -469,9 +414,7 @@
         <li>Entrego seu plano e começamos o acompanhamento.</li>
       </ol>
       <div class="mt-5">
-        <div class="rounded-xl p-4 bg-white/5 border border-white/10">
-
-        </div>
+        <div class="rounded-xl p-4 bg-white/5 border border-white/10"></div>
       </div>
       <div class="mt-6 flex justify-end">
         <button id="videoToForm" class="btn rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold">Quero começar</button>
@@ -508,20 +451,21 @@
   </div>
 
   <script>
-    // Utilidades
     const $ = (s, p=document) => p.querySelector(s);
     const $$ = (s, p=document) => Array.from(p.querySelectorAll(s));
     const scrollToId = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    // Ano no rodapé
     $('#year').textContent = new Date().getFullYear();
 
-    // Abertura do modal de contato
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+    },{ threshold:.15 });
+    $$('.reveal').forEach(el=> io.observe(el));
+
     const contatoModal = document.getElementById('contatoModal');
     const openContato = () => { contatoModal.classList.remove('hidden'); contatoModal.classList.add('flex'); };
     const closeContato = () => { contatoModal.classList.add('hidden'); contatoModal.classList.remove('flex'); };
 
-    // CTAs que abrem o modal de contato
     $('#btnHeroCta').addEventListener('click', openContato);
     $('#btnNavCta').addEventListener('click', openContato);
     $('#videoToForm').addEventListener('click', () => {
@@ -530,14 +474,12 @@
     });
     $('#btnFooterCta').addEventListener('click', openContato);
 
-    // WhatsApp link (apenas preenche com texto; sem número real)
     const whats = $('#whatsLink');
     const defaultMsg = encodeURIComponent('Fala! Quero começar meus treinos no estilo maromba.');
     whats.setAttribute('href', `https://wa.me/558399095400?text=${defaultMsg}`);
     whats.setAttribute('target', '_blank');
     whats.setAttribute('rel', 'noopener');
 
-    // Modal "como funciona"
     const videoModal = $('#videoModal');
     const openVideoModal = () => { videoModal.classList.remove('hidden'); videoModal.classList.add('flex'); };
     const closeVideoModal = () => { videoModal.classList.add('hidden'); videoModal.classList.remove('flex'); };
@@ -545,7 +487,6 @@
     $('#closeVideo').addEventListener('click', closeVideoModal);
     videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideoModal(); });
 
-    // Modal checkout demo (ainda presente como demo, mas não usado agora)
     const checkoutModal = $('#checkoutModal');
     const openCheckout = (plan) => {
       $('#checkoutPlano').textContent = plan;
@@ -555,7 +496,6 @@
     $('#closeCheckout').addEventListener('click', closeCheckout);
     checkoutModal.addEventListener('click', (e) => { if (e.target === checkoutModal) closeCheckout(); });
 
-    // Botões "Agendar consulta" abrem o modal de contato e ajustam objetivo sugerido
     $$('#planos button[data-open-form]').forEach(btn => {
       btn.addEventListener('click', () => {
         const plan = btn.getAttribute('data-open-form');
@@ -569,16 +509,12 @@
       });
     });
 
-    // Fechar modal de contato por botão ou clique fora
     $('#closeContato').addEventListener('click', closeContato);
     contatoModal.addEventListener('click', (e) => { if (e.target === contatoModal) closeContato(); });
 
-    // Formulário: abre WhatsApp com mensagem pré-preenchida e guarda localmente
     $('#leadForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const data = Object.fromEntries(new FormData(e.target).entries());
-
-      // Monta mensagem amigável
       const nome = data.nome?.trim() || '—';
       const email = data.email?.trim() || '—';
       const objetivo = data.objetivo || '—';
@@ -591,11 +527,9 @@
         mensagemExtra ? `Mensagem: ${mensagemExtra}` : null
       ].filter(Boolean).join('\n');
 
-      // Abre WhatsApp com o texto (sem número definido)
       const url = `https://wa.me/558399095400?text=${encodeURIComponent(texto)}`;
       window.open(url, '_blank');
 
-      // Guarda localmente (opcional) e feedback rápido
       try {
         const list = JSON.parse(localStorage.getItem('leads_maromba') || '[]');
         list.push({ ...data, ts: new Date().toISOString() });
@@ -606,10 +540,9 @@
       t.classList.remove('hidden');
       setTimeout(() => t.classList.add('hidden'), 2200);
 
-      // Fecha modal e limpa formulário
       e.target.reset();
       closeContato();
     });
   </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'981170f61094ae1a',t:'MTc1ODIwNDc3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9811ae02668ed97a',t:'MTc1ODIwNzI3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
