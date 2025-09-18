@@ -1,131 +1,163 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Personal Vinícius Azevedo — Transforme-se</title>
-  <meta name="description" content="Landing page do Personal Trainer Vinícius Azevedo. Treinos sob medida, técnica apurada e resultados de verdade." />
+  <meta name="description" content="Landing page do Personal Trainer Vinícius Azevedo. Treinos sob medida, técnica apurada e resultados de verdade."/>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --brand: #22d3ee;
       --brand-2: #22c55e;
       --ink: #0f172a;
-      --ink-2: #0b1226;
+      --ink-2: #060a17;
       --accent: #fb7185;
+      --glow: 0 0 32px rgba(34,211,238,.25), 0 0 64px rgba(34,211,238,.15);
     }
-    html, body { height: 100%; }
+    html, body { height:100%; }
     body {
-      background: radial-gradient(1200px 700px at 10% -10%, rgba(34,211,238,0.18), transparent 60%),
-                  radial-gradient(900px 600px at 90% 10%, rgba(34,197,94,0.14), transparent 60%),
-                  radial-gradient(700px 500px at 50% 110%, rgba(251,113,133,0.12), transparent 60%),
-                  linear-gradient(180deg, var(--ink), var(--ink-2));
-      color: #e5e7eb;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:#e5e7eb; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background:
+        radial-gradient(1200px 800px at 10% -10%, rgba(34,211,238,.14), transparent 60%),
+        radial-gradient(900px 700px at 90% 0%, rgba(34,197,94,.12), transparent 60%),
+        radial-gradient(800px 700px at 50% 115%, rgba(251,113,133,.10), transparent 60%),
+        linear-gradient(180deg, var(--ink), var(--ink-2));
+      overflow-x:hidden;
     }
-    .title { font-family: Anton, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; letter-spacing: 0.5px; }
-    .glass {
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(8px);
-      transition: transform .35s ease, box-shadow .35s ease;
+    /* Fundo animado: gradiente vivo suave */
+    .bg-animated::before {
+      content:""; position:fixed; inset:-20% -10%; z-index:-1;
+      background: conic-gradient(from 180deg, rgba(34,211,238,.07), rgba(34,197,94,.07), rgba(251,113,133,.06), rgba(34,211,238,.07));
+      filter: blur(80px); animation: swirl 24s linear infinite;
+      opacity:.75;
     }
+    @keyframes swirl { to { transform: rotate(1turn); } }
+
+    .title { font-family: Anton, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; letter-spacing:.5px; }
+
+    .glass { background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(10px); transition: transform .35s ease, box-shadow .35s ease; }
     .glass:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
-    .neon { text-shadow: 0 0 12px rgba(34,211,238,0.55), 0 0 28px rgba(34,211,238,0.35); }
 
-    .btn {
-      transition: transform .15s ease, filter .2s ease, opacity .2s ease;
-      will-change: transform, filter;
-      position: relative; overflow: hidden;
-    }
+    .btn { position:relative; overflow:hidden; transition: transform .18s ease, filter .2s ease, opacity .2s ease; will-change:transform, filter; }
     .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
-    #btnHeroCta::after, #btnNavCta::after, #btnFooterCta::after, #videoToForm::after {
-      content: ""; position: absolute; top: -60%; left: -30%; width: 40%; height: 220%;
-      background: linear-gradient(120deg, transparent, rgba(255,255,255,.55), transparent);
-      transform: translateX(-160%) rotate(12deg);
-    }
-    #btnHeroCta:hover::after, #btnNavCta:hover::after, #btnFooterCta:hover::after, #videoToForm:hover::after { animation: shine .9s ease; }
-    #btnHeroCta, #btnNavCta { box-shadow: 0 0 0 0 rgba(34,211,238,.35); animation: pulseGlow 2.4s ease-in-out infinite; }
-
-    .chip { background: linear-gradient(90deg, rgba(34,211,238,0.15), rgba(34,197,94,0.15)); border: 1px solid rgba(255,255,255,0.12); }
-    .ring-glow { box-shadow: 0 0 0 6px rgba(34,211,238,0.2); }
-    .grid-auto { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1.25rem; }
-    .tag-demo { font-size: 10px; letter-spacing: .12em; opacity: .8; }
-
-    @keyframes floaty { from { transform: translateY(0) } to { transform: translateY(-6px) } }
-    .floaty { animation: floaty 2.2s ease-in-out infinite alternate }
-
+    /* Passada de brilho */
+    .btn::after { content:""; position:absolute; top:-60%; left:-30%; width:40%; height:220%; background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent); transform: translateX(-160%) rotate(12deg); }
+    .btn:hover::after { animation: shine .9s ease; }
     @keyframes shine { to { transform: translateX(280%) rotate(12deg); } }
-    @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(34,211,238,.0) } 50% { box-shadow: 0 0 0 10px rgba(34,211,238,.07) } }
 
-    .reveal { opacity: 0; transform: translateY(16px) scale(.98); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.show { opacity: 1; transform: translateY(0) scale(1); }
+    /* PULSE leve nos CTAs principais */
+    #btnHeroCta, #btnNavCta { animation: pulseGlow 2.6s ease-in-out infinite; box-shadow: 0 0 0 0 rgba(34,211,238,.0); }
+    @keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(34,211,238,.00)} 50%{box-shadow:0 0 0 14px rgba(34,211,238,.06)} }
 
-    .floaty svg path:first-of-type { stroke-dasharray: 450; stroke-dashoffset: 450; animation: draw 2.2s ease forwards 0.2s; }
-    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .chip { background: linear-gradient(90deg, rgba(34,211,238,.15), rgba(34,197,94,.15)); border:1px solid rgba(255,255,255,.12); }
 
-    select option, select optgroup { color: #0f172a; background-color: #f8fafc; }
-    @supports (-webkit-appearance:none) or (-moz-appearance:none) {
-      select option:checked { background-color: #e2e8f0; }
-    }
+    /* Apresentação ao rolar */
+    .reveal { opacity:0; transform: translateY(18px) scale(.985); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity:1; transform: translateY(0) scale(1); }
+
+    /* Partículas orbitais */
+    .orb { position:absolute; border-radius:50%; filter: blur(18px); opacity:.55; mix-blend: screen; }
+    .orb--a { width:180px; height:180px; background: radial-gradient(circle at 30% 30%, #22d3ee, transparent 60%); animation: driftA 18s ease-in-out infinite; }
+    .orb--b { width:140px; height:140px; background: radial-gradient(circle at 60% 40%, #22c55e, transparent 60%); animation: driftB 22s ease-in-out infinite; }
+    .orb--c { width:160px; height:160px; background: radial-gradient(circle at 40% 60%, #fb7185, transparent 60%); animation: driftC 26s ease-in-out infinite; }
+    @keyframes driftA { 0%{transform: translate(-20px,0)} 50%{transform: translate(20px,10px)} 100%{transform: translate(-20px,0)} }
+    @keyframes driftB { 0%{transform: translate(0,-10px)} 50%{transform: translate(-18px,8px)} 100%{transform: translate(0,-10px)} }
+    @keyframes driftC { 0%{transform: translate(10px,0)} 50%{transform: translate(-12px,-10px)} 100%{transform: translate(10px,0)} }
+
+    /* Efeito tilt 3D nos cartões */
+    .tilt { transform-style: preserve-3d; perspective: 800px; transition: transform .12s ease; }
+    .tilt-inner { transform: translateZ(30px); }
+
+    /* Nav hover underline fluido */
+    .navlink { position:relative; }
+    .navlink::after { content:""; position:absolute; left:0; right:100%; bottom:-6px; height:2px; background: linear-gradient(90deg, var(--brand), var(--brand-2)); transition: right .25s ease; }
+    .navlink:hover::after { right:0; }
+
+    /* Wave separador animado */
+    .wave path { animation: wave 10s linear infinite; }
+    @keyframes wave { to { transform: translateX(-50%); } }
+
+    /* Badge “novo” animado */
+    .ping { position:relative; }
+    .ping::before { content:""; position:absolute; inset:-4px; border-radius:999px; box-shadow: 0 0 0 0 rgba(34,211,238,.55); animation: ping 1.8s ease-out infinite; }
+    @keyframes ping { 0%{box-shadow:0 0 0 0 rgba(34,211,238,.45)} 100%{box-shadow:0 0 0 18px rgba(34,211,238,0)} }
+
+    /* Mouse move light glare na imagem */
+    .glare { position:absolute; pointer-events:none; inset:0; background: radial-gradient(200px 200px at var(--x,50%) var(--y,50%), rgba(255,255,255,.35), transparent 45%); mix-blend: overlay; opacity:.25; transition: opacity .2s ease; }
+    .media:hover .glare { opacity:.45; }
+
+    /* Botão magnético */
+    .magnet { transition: transform .08s ease; will-change: transform; }
+
+    /* Scroll progress */
+    #progressBar { box-shadow: 0 0 10px rgba(34,211,238,.55); }
+
+    /* Contadores */
+    .counter { text-shadow: var(--glow); }
+
+    /* Backdrop sutil no header ao rolar */
+    #siteHeader.scrolled { background: rgba(0,0,0,.6); }
+
+    /* Marquee de conquistas */
+    .marquee { overflow:hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+    .marquee-track { display:flex; gap:18px; white-space:nowrap; animation: marquee 28s linear infinite; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
   </style>
 </head>
-<body class="antialiased">
-  <!-- Nav -->
-  <header id="siteHeader" class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10 transition-all duration-300">
+<body class="antialiased bg-animated">
+  <!-- Header -->
+  <header id="siteHeader" class="sticky top-0 z-50 backdrop-blur border-b border-white/10 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center gap-3 flex-wrap">
       <div class="flex items-center gap-3 flex-shrink-0">
-        <div class="h-9 w-9 rounded-lg overflow-hidden ring-1 ring-cyan-400/40 bg-white/5">
-          <img src="Gemini_Generated_Image_f35caqf35caqf35c.png" alt="Marca Team Taurus" class="w-full h-full object-cover" onerror="this.src=''; this.alt='Imagem não carregou'; this.style.display='none';" />
+        <div class="h-10 w-10 rounded-lg overflow-hidden ring-1 ring-cyan-400/40 bg-white/5 group">
+          <img src="Gemini_Generated_Image_f35caqf35caqf35c.png" alt="Marca Team Taurus" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src=''; this.alt='Imagem não carregou'; this.style.display='none';"/>
         </div>
         <div>
           <p class="title text-xl md:text-2xl text-white tracking-wide">Vinícius Azevedo</p>
           <p class="text-xs text-cyan-300/80 uppercase tag-demo">Personal Trainer</p>
         </div>
       </div>
-      <nav class="hidden md:flex items-center gap-4 text-sm flex-wrap md:flex-nowrap mx-auto">
-        <a href="#beneficios" class="text-gray-300 hover:text-white">Benefícios</a>
-        <a href="#planos" class="text-gray-300 hover:text-white">Planos</a>
-        <a href="#sobre-mim" class="text-gray-300 hover:text-white">Sobre mim</a>
-        <a href="#contato" class="text-gray-300 hover:text-white">Contato</a>
-        <a href="#faq" class="text-gray-300 hover:text-white">FAQ</a>
+
+      <nav class="hidden md:flex items-center gap-5 text-sm flex-wrap md:flex-nowrap mx-auto">
+        <a href="#beneficios" class="text-gray-300 hover:text-white navlink">Benefícios</a>
+        <a href="#planos" class="text-gray-300 hover:text-white navlink">Planos</a>
+        <a href="#sobre-mim" class="text-gray-300 hover:text-white navlink">Sobre mim</a>
+        <a href="#faq" class="text-gray-300 hover:text-white navlink">FAQ</a>
       </nav>
+
       <div class="ml-auto"></div>
-      <button id="btnNavCta" class="btn inline-flex items-center gap-2 rounded-lg px-3 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold whitespace-normal max-w-[46%] md:max-w-none truncate">
+      <button id="btnNavCta" class="btn magnet inline-flex items-center gap-2 rounded-lg px-3 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold whitespace-normal max-w-[48%] md:max-w-none truncate">
         <span>Agendar consulta</span>
       </button>
       <button id="backToTop" class="hidden md:inline-flex ml-2 rounded-lg px-3 py-2 bg-white/5 border border-white/10 text-white text-xs hover:bg-white/10">Topo ↑</button>
     </div>
     <div id="progressBar" class="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-400 to-emerald-400 w-0"></div>
-</header>
+  </header>
 
-  <!-- Partículas -->
-  <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-    <svg viewBox="0 0 800 600" class="w-full h-full opacity-30">
-      <defs><radialGradient id="p" r="1"><stop offset="0%" stop-color="#22d3ee" stop-opacity=".7" /><stop offset="100%" stop-color="#22d3ee" stop-opacity="0" /></radialGradient></defs>
-      <circle cx="120" cy="140" r="80" fill="url(#p)"><animate attributeName="cx" values="120;720;120" dur="18s" repeatCount="indefinite" /><animate attributeName="cy" values="140;460;140" dur="22s" repeatCount="indefinite" /></circle>
-      <circle cx="680" cy="420" r="70" fill="url(#p)"><animate attributeName="cx" values="680;100;680" dur="20s" repeatCount="indefinite" /><animate attributeName="cy" values="420;180;420" dur="17s" repeatCount="indefinite" /></circle>
-      <circle cx="400" cy="300" r="90" fill="url(#p)"><animate attributeName="r" values="60;100;60" dur="14s" repeatCount="indefinite" /></circle>
-    </svg>
-  </div>
+  <!-- Orbs decorativas -->
+  <div class="orb orb--a" style="top:12%; left:6%;"></div>
+  <div class="orb orb--b" style="top:18%; right:8%;"></div>
+  <div class="orb orb--c" style="bottom:10%; left:14%;"></div>
 
   <!-- Hero -->
   <section class="relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 pt-14 pb-10 md:pt-20 md:pb-16 grid-auto items-center reveal">
+    <div class="max-w-7xl mx-auto px-6 pt-14 pb-12 md:pt-20 md:pb-16 grid grid-cols-12 gap-5 items-center reveal">
       <div class="col-span-12 md:col-span-7">
         <div class="inline-flex items-center gap-2 chip rounded-full px-3 py-1 text-xs text-cyan-200">
-          <span class="h-2 w-2 rounded-full bg-emerald-400 inline-block"></span>
+          <span class="h-2 w-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
           Resultados reais, sem mimimi
         </div>
-        <h1 class="title text-4xl md:text-6xl mt-5 leading-tight text-white">Vinícius <span class="text-cyan-300 neon">Personal Trainer</span></h1>
-<p id="typeLine" class="mt-3 text-cyan-200/90 text-base md:text-lg"></p>
+        <h1 class="title text-4xl md:text-6xl mt-5 leading-tight text-white">Vinícius <span class="text-cyan-300" style="text-shadow: var(--glow)">Personal Trainer</span></h1>
+        <p id="typeLine" class="mt-3 text-cyan-200/90 text-base md:text-lg"></p>
         <p class="text-gray-300 mt-4 md:text-lg max-w-xl">
           Treinos personalizados, orientação de treino e acompanhamento de verdade. Difícil? É. Impossível? Nunca.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row gap-4">
-          <button id="btnHeroCta" class="btn rounded-xl px-6 py-3 text-ink font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 ring-1 ring-white/10">
+          <button id="btnHeroCta" class="btn magnet rounded-xl px-6 py-3 text-ink font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 ring-1 ring-white/10">
             Agendar consulta
           </button>
           <button id="btnHeroVideo" class="btn rounded-xl px-6 py-3 font-semibold text-white/90 bg-white/5 border border-white/10 hover:bg-white/10">
@@ -137,94 +169,142 @@
           <div class="flex items-center gap-2"><span class="text-cyan-400">⬤</span> Treino sob medida</div>
           <div class="flex items-center gap-2"><span class="text-pink-400">⬤</span> 100% focado no seu objetivo</div>
         </div>
+
+        <!-- Marquee de conquistas -->
+        <div class="marquee mt-7">
+          <div class="marquee-track text-sm text-cyan-200/80">
+            <span class="px-3">+4.2kg massa magra em 8 semanas</span>
+            <span class="px-3">PR agacho +25%</span>
+            <span class="px-3">Consistência 90 dias</span>
+            <span class="px-3">Sono regulado</span>
+            <span class="px-3">Dor lombar zerada</span>
+            <span class="px-3">Mobilidade ↑</span>
+            <!-- duplicado para loop fluido -->
+            <span class="px-3">+4.2kg massa magra em 8 semanas</span>
+            <span class="px-3">PR agacho +25%</span>
+            <span class="px-3">Consistência 90 dias</span>
+            <span class="px-3">Sono regulado</span>
+            <span class="px-3">Dor lombar zerada</span>
+            <span class="px-3">Mobilidade ↑</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Card visual ao lado -->
+      <!-- Visual -->
       <div class="col-span-12 md:col-span-5">
-        <div class="glass rounded-3xl p-6 md:p-8 relative overflow-hidden floaty">
-          <div class="absolute -top-12 -right-12 h-48 w-48 rounded-full bg-cyan-400/20 blur-2xl"></div>
-          <div class="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-emerald-400/20 blur-2xl"></div>
+        <div id="heroCard" class="glass rounded-3xl p-0 md:p-0 relative overflow-hidden tilt">
+          <!-- Blobs parallax -->
+          <div class="absolute -top-16 -right-10 h-56 w-56 rounded-full bg-cyan-400/20 blur-2xl translate-y-0 will-change-transform" id="blobA"></div>
+          <div class="absolute -bottom-20 -left-12 h-52 w-52 rounded-full bg-emerald-400/20 blur-2xl translate-y-0 will-change-transform" id="blobB"></div>
 
-          <div class="flex items-center justify-center">
-            <div class="w-full select-none">
-              <div class="w-full rounded-2xl overflow-hidden border border-white/10 shadow">
-                <img
-                  src="Gemini_Generated_Image_f35caqf35caqf35c.png"
-                  alt="Imagem do Team Taurus"
-                  class="w-full h-72 md:h-96 object-cover"
-                  loading="lazy"
-                  onerror="this.src=''; this.alt='Imagem não carregou'; this.style.display='none';"
-                />
+          <div class="media relative">
+            <div class="glare" aria-hidden="true"></div>
+            <img
+              src="Gemini_Generated_Image_f35caqf35caqf35c.png"
+              alt="Imagem destaque"
+              class="w-full h-[380px] md:h-[460px] object-cover select-none"
+              loading="lazy"
+              onerror="this.src=''; this.alt='Imagem não carregou'; this.style.display='none';"
+            />
+          </div>
+
+          <!-- Badges animadas -->
+          <div class="absolute top-4 left-4 flex gap-2">
+            <span class="ping text-[10px] px-2 py-1 rounded-full bg-white/10 border border-white/15">Resultados rápidos</span>
+            <span class="text-[10px] px-2 py-1 rounded-full bg-emerald-400/20 text-emerald-200 border border-emerald-400/30">Método tauros</span>
+          </div>
+
+          <!-- Trinca de pilares responsiva -->
+          <div class="p-5 md:p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm *:min-h-[82px]">
+              <div class="rounded-xl p-4 bg-white/5 border border-white/10 tilt">
+                <div class="tilt-inner">
+                  <p class="text-gray-400">Treinos</p>
+                  <p class="text-white font-semibold">Periodizados</p>
+                </div>
+              </div>
+              <div class="rounded-xl p-4 bg-white/5 border border-white/10 tilt">
+                <div class="tilt-inner">
+                  <p class="text-gray-400">Técnica</p>
+                  <p class="text-white font-semibold">Execução correta</p>
+                </div>
+              </div>
+              <div class="rounded-xl p-4 bg-white/5 border border-white/10 tilt">
+                <div class="tilt-inner">
+                  <p class="text-gray-400">Suporte</p>
+                  <p class="text-white font-semibold">No dia a dia</p>
+                </div>
               </div>
             </div>
           </div>
 
-          
-
-          <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm *:min-h-[82px]">
-            <div class="rounded-xl p-4 bg-white/5 border border-white/10">
-              <p class="text-gray-400">Treinos</p>
-              <p class="text-white font-semibold">Periodizados</p>
+          <!-- Contadores -->
+          <div class="px-5 pb-6 md:px-6 grid grid-cols-3 gap-3 text-center">
+            <div class="rounded-xl bg-white/5 border border-white/10 py-3">
+              <p class="counter text-2xl font-extrabold text-white" data-target="120">0</p>
+              <p class="text-[11px] text-gray-300">Alunos</p>
             </div>
-            <div class="rounded-xl p-4 bg-white/5 border border-white/10">
-              <p class="text-gray-400">Técnica</p>
-              <p class="text-white font-semibold">Execução correta</p>
+            <div class="rounded-xl bg-white/5 border border-white/10 py-3">
+              <p class="counter text-2xl font-extrabold text-white" data-target="4500">0</p>
+              <p class="text-[11px] text-gray-300">Treinos</p>
             </div>
-            <div class="rounded-xl p-4 bg-white/5 border border-white/10">
-              <p class="text-gray-400">Suporte</p>
-              <p class="text-white font-semibold">No dia a dia</p>
+            <div class="rounded-xl bg-white/5 border border-white/10 py-3">
+              <p class="counter text-2xl font-extrabold text-white" data-target="98">0</p>
+              <p class="text-[11px] text-gray-300">Satisfação %</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Ações flutuantes -->
-  <div id="floatActions" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 transition-opacity duration-300 opacity-0 pointer-events-none">
-    <button id="floatCta" class="btn rounded-full px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold shadow-lg active:scale-95">Agendar agora</button>
-    <a id="floatWhats" target="_blank" rel="noopener" class="btn rounded-full px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10 text-sm">WhatsApp</a>
-  </div>
+    <!-- Wave separador -->
+    <div class="wave relative h-10 overflow-hidden -mt-4 opacity-60">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="absolute w-[200%] h-full">
+        <path d="M0,0 C300,100 900,0 1200,100 L1200,120 L0,120 Z" fill="rgba(34,211,238,.10)"></path>
+      </svg>
+    </div>
+  </section>
 
   <!-- Benefícios -->
   <section id="beneficios" class="max-w-7xl mx-auto px-6 py-14 md:py-20">
     <div class="mx-auto max-w-2xl text-center mb-3">
       <div id="readHint" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">
         <span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span>
-        Continue descendo — tem mais!</div>
+        Continue descendo — tem mais!
+      </div>
     </div>
     <div class="text-center">
       <h2 class="title text-3xl md:text-5xl text-white">Simples, Direto e que Funciona</h2>
       <p class="text-gray-300 mt-3">Sem frescura: treino inteligente, execução correta e consistência.</p>
     </div>
-    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal">
-      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
-        <div class="h-10 w-10 grid place-items-center rounded-lg bg-cyan-400/20 text-cyan-300 mb-4">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M3 10h2v4H3v-4zm16 0h2v4h-2v-4zM7 8h2v8H7V8zm8 0h2v8h-2V8zM10 11h4v2h-4v-2z"/></svg>
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal" id="benefitGrid">
+      <div class="glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
+        <div class="tilt-inner">
+          <div class="h-10 w-10 grid place-items-center rounded-lg bg-cyan-400/20 text-cyan-300 mb-4">🏋️</div>
+          <p class="text-white font-semibold">Treino sob medida</p>
+          <p class="text-gray-300 text-sm mt-1">Planos montados para seu objetivo e rotina.</p>
         </div>
-        <p class="text-white font-semibold">Treino sob medida</p>
-        <p class="text-gray-300 text-sm mt-1">Planos montados para seu objetivo e rotina.</p>
       </div>
-      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
-        <div class="h-10 w-10 grid place-items-center rounded-lg bg-emerald-400/20 text-emerald-300 mb-4">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 16.2l-3.5-3.5L4 14.2l5 5 11-11-1.4-1.4z"/></svg>
+      <div class="glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
+        <div class="tilt-inner">
+          <div class="h-10 w-10 grid place-items-center rounded-lg bg-emerald-400/20 text-emerald-300 mb-4">✅</div>
+          <p class="text-white font-semibold">Técnica e execução</p>
+          <p class="text-gray-300 text-sm mt-1">Mais performance, menos lesão.</p>
         </div>
-        <p class="text-white font-semibold">Técnica e execução</p>
-        <p class="text-gray-300 text-sm mt-1">Ajuste de forma para render mais e evitar lesão.</p>
       </div>
-      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
-        <div class="h-10 w-10 grid place-items-center rounded-lg bg-pink-400/20 text-pink-300 mb-4">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21 8.5c0 5.5-9 12-9 12S3 14 3 8.5A4.5 4.5 0 0 1 7.5 4C9.2 4 10.7 4.8 12 6c1.3-1.2 2.8-2 4.5-2A4.5 4.5 0 0 1 21 8.5z"/></svg>
+      <div class="glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
+        <div class="tilt-inner">
+          <div class="h-10 w-10 grid place-items-center rounded-lg bg-pink-400/20 text-pink-300 mb-4">❤️</div>
+          <p class="text-white font-semibold">Saúde em dia</p>
+          <p class="text-gray-300 text-sm mt-1">Energia, sono e disposição alinhados.</p>
         </div>
-        <p class="text-white font-semibold">Saúde em dia</p>
-        <p class="text-gray-300 text-sm mt-1">Energia, sono e disposição alinhados.</p>
       </div>
-      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
-        <div class="h-10 w-10 grid place-items-center rounded-lg bg-yellow-400/20 text-yellow-300 mb-4">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2zm1 11h5v-2h-4V7h-2v6z"/></svg>
+      <div class="glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
+        <div class="tilt-inner">
+          <div class="h-10 w-10 grid place-items-center rounded-lg bg-yellow-400/20 text-yellow-300 mb-4">⏱️</div>
+          <p class="text-white font-semibold">Cabe na agenda</p>
+          <p class="text-gray-300 text-sm mt-1">Treinos inteligentes em menos tempo.</p>
         </div>
-        <p class="text-white font-semibold">Cabe na agenda</p>
-        <p class="text-gray-300 text-sm mt-1">Treinos inteligentes em menos tempo.</p>
       </div>
     </div>
   </section>
@@ -236,8 +316,8 @@
       <p class="text-gray-300 mt-3 max-w-2xl mx-auto">Educador físico formado pela UNIESP, com projetos voluntários na UFPB, especialista em spinning, alongamentos e treinos personalizados.</p>
     </div>
     <div class="max-w-3xl mx-auto">
-      <div class="glass rounded-3xl p-6 md:p-8 text-center">
-        <p class="text-gray-300 leading-relaxed">Sou educador físico formado pela UNIESP, com experiência em projetos voluntários na UFPB. Atuo como especialista em spinning, alongamentos e treinos personalizados para diferentes objetivos e níveis. Meu foco é alinhar técnica e constância para construir resultados reais, no seu ritmo.</p>
+      <div class="glass rounded-3xl p-6 md:p-8 text-center tilt">
+        <p class="tilt-inner text-gray-300 leading-relaxed">Sou educador físico formado pela UNIESP. Atuo com diferentes objetivos e níveis, alinhando técnica e constância para construir resultados reais no seu ritmo.</p>
       </div>
     </div>
   </section>
@@ -250,46 +330,50 @@
     </div>
 
     <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 reveal" id="planCards">
-      <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px]">
-        <div class="flex items-center justify-between">
-          <p class="text-white font-semibold">Essencial</p>
-          <span class="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">Iniciante</span>
+      <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px] tilt">
+        <div class="tilt-inner flex flex-col h-full">
+          <div class="flex items-center justify-between">
+            <p class="text-white font-semibold">Essencial</p>
+            <span class="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">Iniciante</span>
+          </div>
+          <p class="text-3xl font-extrabold mt-2 text-white">R$ 129<span class="text-sm text-gray-400">/mês</span></p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-300">
+            <li>• Treino personalizado</li>
+            <li>• Check-in quinzenal</li>
+          </ul>
+          <button data-open-form="Essencial" class="btn magnet mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
         </div>
-        <p class="text-3xl font-extrabold mt-2 text-white">R$ 129<span class="text-sm text-gray-400">/mês</span></p>
-        <ul class="mt-4 space-y-2 text-sm text-gray-300">
-          <li>• Treino personalizado</li>
-          
-          <li>• Check-in quinzenal</li>
-        </ul>
-        <button data-open-form="Essencial" class="btn mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
       </div>
 
-      <div class="glass rounded-3xl p-6 flex flex-col ring-1 ring-cyan-400/30 min-h-[360px]">
-        <div class="flex items-center justify-between">
-          <p class="text-white font-semibold">Performance</p>
-          <span class="px-2 py-1 rounded-full bg-cyan-400/20 text-cyan-200 text-xs border border-cyan-400/30">Mais popular</span>
+      <div class="glass rounded-3xl p-6 flex flex-col ring-1 ring-cyan-400/30 min-h-[360px] tilt">
+        <div class="tilt-inner flex flex-col h-full">
+          <div class="flex items-center justify-between">
+            <p class="text-white font-semibold">Performance</p>
+            <span class="px-2 py-1 rounded-full bg-cyan-400/20 text-cyan-200 text-xs border border-cyan-400/30">Mais popular</span>
+          </div>
+          <p class="text-3xl font-extrabold mt-2 text-white">R$ 199<span class="text-sm text-gray-400">/mês</span></p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-300">
+            <li>• Treino + periodização</li>
+            <li>• Check-in semanal e suporte</li>
+          </ul>
+          <button data-open-form="Performance" class="btn magnet mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
         </div>
-        <p class="text-3xl font-extrabold mt-2 text-white">R$ 199<span class="text-sm text-gray-400">/mês</span></p>
-        <ul class="mt-4 space-y-2 text-sm text-gray-300">
-          <li>• Treino + periodização</li>
-          
-          <li>• Check-in semanal e suporte</li>
-        </ul>
-        <button data-open-form="Performance" class="btn mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
       </div>
 
-      <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px]">
-        <div class="flex items-center justify-between">
-          <p class="text-white font-semibold">Elite</p>
-          <span class="px-2 py-1 rounded-full bg-pink-400/20 text-pink-200 text-xs border border-pink-400/30">Resultados agressivos</span>
+      <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px] tilt">
+        <div class="tilt-inner flex flex-col h-full">
+          <div class="flex items-center justify-between">
+            <p class="text-white font-semibold">Elite</p>
+            <span class="px-2 py-1 rounded-full bg-pink-400/20 text-pink-200 text-xs border border-pink-400/30">Resultados agressivos</span>
+          </div>
+          <p class="text-3xl font-extrabold mt-2 text-white">R$ 349<span class="text-sm text-gray-400">/mês</span></p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-300">
+            <li>• Treino premium + ajustes</li>
+            <li>• Periodização semanal avançada</li>
+            <li>• Suporte quase diário</li>
+          </ul>
+          <button data-open-form="Elite" class="btn magnet mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
         </div>
-        <p class="text-3xl font-extrabold mt-2 text-white">R$ 349<span class="text-sm text-gray-400">/mês</span></p>
-        <ul class="mt-4 space-y-2 text-sm text-gray-300">
-          <li>• Treino premium + ajustes</li>
-          <li>• Periodização semanal avançada</li>
-          <li>• Suporte quase diário</li>
-        </ul>
-        <button data-open-form="Elite" class="btn mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
       </div>
     </div>
   </section>
@@ -298,40 +382,53 @@
   <section class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
     <div class="text-center mb-8">
       <h2 class="title text-3xl md:text-5xl text-white">O que a galera fala</h2>
+      <p class="text-gray-300 mt-2">Gente real, resultado real.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <div class="glass rounded-2xl p-5">
-        <div class="flex items-center gap-3 flex-shrink-0">
-          <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">🏋️</div>
-          <div>
-            <p class="text-white font-semibold">Bruno</p>
-            <p class="text-xs text-gray-400">6 meses</p>
+      <div class="glass rounded-2xl p-5 tilt">
+        <div class="tilt-inner">
+          <div class="flex items-center gap-3 flex-shrink-0">
+            <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">🏋️</div>
+            <div>
+              <p class="text-white font-semibold">Bruno</p>
+              <p class="text-xs text-gray-400">6 meses</p>
+            </div>
           </div>
+          <p class="text-gray-300 text-sm mt-3">“3 meses e PR em agacho e supino. Direto, sem papo furado.”</p>
         </div>
-        <p class="text-gray-300 text-sm mt-3">“3 meses já bati PR em agacho e supino. Direto, sem papo furado.”</p>
       </div>
-      <div class="glass rounded-2xl p-5">
-        <div class="flex items-center gap-3 flex-shrink-0">
-          <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">💪</div>
-          <div>
-            <p class="text-white font-semibold">Larissa</p>
-            <p class="text-xs text-gray-400">4 meses</p>
+      <div class="glass rounded-2xl p-5 tilt">
+        <div class="tilt-inner">
+          <div class="flex items-center gap-3 flex-shrink-0">
+            <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">💪</div>
+            <div>
+              <p class="text-white font-semibold">Larissa</p>
+              <p class="text-xs text-gray-400">4 meses</p>
+            </div>
           </div>
+          <p class="text-gray-300 text-sm mt-3">“Treinos objetivos, técnica ajustada. Resultado veio.”</p>
         </div>
-        <p class="text-gray-300 text-sm mt-3">“Treinos objetivos, técnica ajustada. Resultado veio.”</p>
       </div>
-      <div class="glass rounded-2xl p-5">
-        <div class="flex items-center gap-3 flex-shrink-0">
-          <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">⚡</div>
-          <div>
-            <p class="text-white font-semibold">Diego</p>
-            <p class="text-xs text-gray-400">8 meses</p>
+      <div class="glass rounded-2xl p-5 tilt">
+        <div class="tilt-inner">
+          <div class="flex items-center gap-3 flex-shrink-0">
+            <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">⚡</div>
+            <div>
+              <p class="text-white font-semibold">Diego</p>
+              <p class="text-xs text-gray-400">8 meses</p>
+            </div>
           </div>
+          <p class="text-gray-300 text-sm mt-3">“Acompanhamento faz a diferença. Consistência virou hábito.”</p>
         </div>
-        <p class="text-gray-300 text-sm mt-3">“Acompanhamento faz a diferença. Consistência virou hábito.”</p>
       </div>
     </div>
   </section>
+
+  <!-- CTA flutuantes -->
+  <div id="floatActions" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <button id="floatCta" class="btn magnet rounded-full px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold shadow-lg active:scale-95">Agendar agora</button>
+    <a id="floatWhats" target="_blank" rel="noopener" class="btn rounded-full px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10 text-sm">WhatsApp</a>
+  </div>
 
   <!-- Modal de Contato (DEMO) -->
   <div id="contatoModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm items-center justify-center p-6">
@@ -395,7 +492,7 @@
       <details class="glass rounded-2xl p-5 group">
         <summary class="flex items-center justify-between cursor-pointer list-none">
           <span class="text-white font-semibold">Quanto tempo para ver resultado?</span>
-          <span class="text-gray-300 group-open:rotate-180 transition">⌄</span>
+          <span class="text-gray-400 group-open:rotate-180 transition">⌄</span>
         </summary>
         <p class="text-gray-300 mt-3 text-sm">Depende do objetivo e consistência. Nas primeiras semanas já dá para notar evolução.</p>
       </details>
@@ -407,13 +504,13 @@
     <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
       <p class="text-gray-400 text-sm">© <span id="year"></span> Vinícius Azevedo. Todos os direitos reservados.</p>
       <div class="flex items-center gap-3 flex-shrink-0">
-        <button id="btnFooterCta" class="btn rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10">Começar agora</button>
+        <button id="btnFooterCta" class="btn magnet rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10">Começar agora</button>
         <a id="whatsLink" href="#" class="btn rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold">Falar no WhatsApp</a>
       </div>
     </div>
   </footer>
 
-  <!-- Modal "como funciona" -->
+  <!-- Video Modal -->
   <div id="videoModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm items-center justify-center p-6">
     <div class="glass rounded-3xl max-w-2xl w-full p-6 relative">
       <button id="closeVideo" class="absolute top-3 right-3 text-gray-300 hover:text-white">✕</button>
@@ -424,34 +521,8 @@
         <li>Alinhamos objetivo, rotina e histórico.</li>
         <li>Entrego seu plano e começamos o acompanhamento.</li>
       </ol>
-      <div class="mt-5">
-        <div class="rounded-xl p-4 bg-white/5 border border-white/10"></div>
-      </div>
       <div class="mt-6 flex justify-end">
-        <button id="videoToForm" class="btn rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold">Quero começar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal checkout/demo -->
-  <div id="checkoutModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm items-center justify-center p-6">
-    <div class="glass rounded-3xl max-w-lg w-full p-6 relative">
-      <button id="closeCheckout" class="absolute top-3 right-3 text-gray-300 hover:text-white">✕</button>
-      <h3 class="title text-2xl text-white">Teste de 7 dias</h3>
-
-      <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
-        <div class="rounded-xl p-4 bg-white/5 border border-white/10">
-          <p class="text-gray-400">Plano</p>
-          <p id="checkoutPlano" class="text-white font-semibold">—</p>
-        </div>
-        <div class="rounded-xl p-4 bg-white/5 border border-white/10">
-          <p class="text-gray-400">Período</p>
-          <p class="text-white font-semibold">7 dias</p>
-        </div>
-      </div>
-      <div class="mt-5">
-        <button id="checkoutGo" class="btn w-full rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Continuar</button>
-        <p class="text-xs text-gray-400 mt-2">Ao continuar, abriremos o formulário para combinar o início.</p>
+        <button id="videoToForm" class="btn magnet rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold">Quero começar</button>
       </div>
     </div>
   </div>
@@ -462,166 +533,211 @@
   </div>
 
   <script>
+    // Atalhos
     const $ = (s, p=document) => p.querySelector(s);
     const $$ = (s, p=document) => Array.from(p.querySelectorAll(s));
-    const scrollToId = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+    // Ano
     $('#year').textContent = new Date().getFullYear();
 
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
-    },{ threshold:.15 });
+    // Revela ao rolar
+    const io = new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} }),{threshold:.15});
     $$('.reveal').forEach(el=> io.observe(el));
 
-    const contatoModal = document.getElementById('contatoModal');
-    const openContato = () => { contatoModal.classList.remove('hidden'); contatoModal.classList.add('flex'); };
-    const closeContato = () => { contatoModal.classList.add('hidden'); contatoModal.classList.remove('flex'); };
-
-    $('#btnHeroCta').addEventListener('click', openContato);
-    $('#btnNavCta').addEventListener('click', openContato);
-    $('#videoToForm').addEventListener('click', () => {
-      closeVideoModal();
-      openContato();
-    });
-    $('#btnFooterCta').addEventListener('click', openContato);
-
-    const whats = $('#whatsLink');
-    const defaultMsg = encodeURIComponent('Fala! Quero começar meus treinos no estilo maromba.');
-    whats.setAttribute('href', `https://wa.me/558399095400?text=${defaultMsg}`);
-    whats.setAttribute('target', '_blank');
-    whats.setAttribute('rel', 'noopener');
-
-    const videoModal = $('#videoModal');
-    const openVideoModal = () => { videoModal.classList.remove('hidden'); videoModal.classList.add('flex'); };
-    const closeVideoModal = () => { videoModal.classList.add('hidden'); videoModal.classList.remove('flex'); };
-    $('#btnHeroVideo').addEventListener('click', openVideoModal);
-    $('#closeVideo').addEventListener('click', closeVideoModal);
-    videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideoModal(); });
-
-    const checkoutModal = $('#checkoutModal');
-    const openCheckout = (plan) => {
-      $('#checkoutPlano').textContent = plan;
-      checkoutModal.classList.remove('hidden'); checkoutModal.classList.add('flex');
+    // Parallax blobs
+    const blobA = $('#blobA'), blobB = $('#blobB');
+    let lastScrollY = 0;
+    const onScrollParallax = () => {
+      const s = window.scrollY;
+      const d = s - lastScrollY; lastScrollY = s;
+      if (blobA) blobA.style.transform = `translateY(${s * .06}px)`;
+      if (blobB) blobB.style.transform = `translateY(${-s * .05}px)`;
     };
-    const closeCheckout = () => { checkoutModal.classList.add('hidden'); checkoutModal.classList.remove('flex'); };
-    $('#closeCheckout').addEventListener('click', closeCheckout);
-    checkoutModal.addEventListener('click', (e) => { if (e.target === checkoutModal) closeCheckout(); });
 
-    $$('#planos button[data-open-form]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const plan = btn.getAttribute('data-open-form');
-        openContato();
-        const campoPlano = document.querySelector('select[name="objetivo"]');
-        if (campoPlano && plan) {
-          if (plan === 'Essencial') campoPlano.value = 'Saúde/Qualidade de vida';
-          if (plan === 'Performance') campoPlano.value = 'Performance';
-          if (plan === 'Elite') campoPlano.value = 'Hipertrofia';
-        }
-      });
-    });
-
-    $('#closeContato').addEventListener('click', closeContato);
-    contatoModal.addEventListener('click', (e) => { if (e.target === contatoModal) closeContato(); });
-
-    $('#leadForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(e.target).entries());
-      const nome = data.nome?.trim() || '—';
-      const email = data.email?.trim() || '—';
-      const objetivo = data.objetivo || '—';
-      const mensagemExtra = data.msg?.trim();
-      const texto = [
-        `Olá, Vinícius! Quero agendar uma consulta.`,
-        `Nome: ${nome}`,
-        `E-mail: ${email}`,
-        `Objetivo: ${objetivo}`,
-        mensagemExtra ? `Mensagem: ${mensagemExtra}` : null
-      ].filter(Boolean).join('\n');
-
-      const url = `https://wa.me/558399095400?text=${encodeURIComponent(texto)}`;
-      window.open(url, '_blank');
-
-      try {
-        const list = JSON.parse(localStorage.getItem('leads_maromba') || '[]');
-        list.push({ ...data, ts: new Date().toISOString() });
-        localStorage.setItem('leads_maromba', JSON.stringify(list));
-      } catch (err) {}
-
-      const t = $('#toast');
-      t.classList.remove('hidden');
-      setTimeout(() => t.classList.add('hidden'), 2200);
-
-      e.target.reset();
-      closeContato();
-    });
-    // Barra de progresso e header compacto
-    const header = document.getElementById('siteHeader');
-    const progress = document.getElementById('progressBar');
-    const backToTop = document.getElementById('backToTop');
-
-    const onScroll = () => {
+    // Progress bar, header state, float CTAs
+    const header = $('#siteHeader'), progress = $('#progressBar'), backToTop = $('#backToTop');
+    const float = $('#floatActions');
+    const onScrollUI = () => {
       const h = document.documentElement;
       const scrolled = h.scrollTop || document.body.scrollTop;
       const height = h.scrollHeight - h.clientHeight;
       const pct = Math.min(100, Math.max(0, (scrolled/height)*100));
       progress.style.width = pct + '%';
-      if (scrolled > 80) {
-        header.classList.add('bg-black/60');
-        backToTop.classList.remove('hidden');
-      } else {
-        header.classList.remove('bg-black/60');
-        backToTop.classList.add('hidden');
-      }
-      // Mostrar ações flutuantes após 30% de leitura
-      const float = document.getElementById('floatActions');
-      if (pct > 30) { float.classList.remove('opacity-0','pointer-events-none'); }
-      else { float.classList.add('opacity-0','pointer-events-none'); }
+      if (scrolled > 80) { header.classList.add('scrolled'); backToTop.classList.remove('hidden'); }
+      else { header.classList.remove('scrolled'); backToTop.classList.add('hidden'); }
+      if (pct > 25) float.classList.remove('opacity-0','pointer-events-none');
+      else float.classList.add('opacity-0','pointer-events-none');
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
 
-    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.addEventListener('scroll', ()=>{ onScrollUI(); onScrollParallax(); }, {passive:true});
+    backToTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-    // Efeito de digitação para frases de prova social
-    const lines = [
-      'Resultados reais, disciplina de atleta.',
-      'Treino sob medida, zero achismo.',
-      'Constância vence motivação. Bora?'
-    ];
-    const typeTarget = document.getElementById('typeLine');
-    let li = 0, ci = 0, deleting = false;
+    // Typewriter
+    const lines = ['Resultados reais, disciplina de atleta.','Treino sob medida, zero achismo.','Constância vence motivação. Bora?'];
+    const typeTarget = $('#typeLine');
+    let li=0, ci=0, del=false;
     function typeLoop(){
-      const current = lines[li];
-      if (!deleting) {
-        typeTarget.textContent = current.slice(0, ci++);
-        if (ci > current.length + 8) deleting = true;
-      } else {
-        typeTarget.textContent = current.slice(0, ci--);
-        if (ci === 0) { deleting = false; li = (li+1)%lines.length; }
-      }
-      const delay = deleting ? 40 : 60;
-      setTimeout(typeLoop, delay);
+      const cur=lines[li];
+      typeTarget.textContent = cur.slice(0, ci);
+      if(!del){ ci++; if(ci>cur.length+8) del=true; }
+      else { ci--; if(ci===0){ del=false; li=(li+1)%lines.length; } }
+      setTimeout(typeLoop, del?40:60);
     }
     if(typeTarget) typeLoop();
 
-    // Conectar CTAs flutuantes
-    document.getElementById('floatCta').addEventListener('click', openContato);
-    const floatWhats = document.getElementById('floatWhats');
-    floatWhats.href = whats.href; // mesmo link do header
+    // Modais
+    const contatoModal = $('#contatoModal');
+    const openContato = ()=>{ contatoModal.classList.remove('hidden'); contatoModal.classList.add('flex'); };
+    const closeContato = ()=>{ contatoModal.classList.add('hidden'); contatoModal.classList.remove('flex'); };
+    $('#btnHeroCta').addEventListener('click', openContato);
+    $('#btnNavCta').addEventListener('click', openContato);
+    $('#btnFooterCta')?.addEventListener('click', openContato);
+    $('#closeContato').addEventListener('click', closeContato);
+    contatoModal.addEventListener('click', (e)=>{ if(e.target===contatoModal) closeContato(); });
 
-    // Destaque nos planos ao focar/hover
-    document.getElementById('planCards').addEventListener('mouseover', (e)=>{
-      const card = e.target.closest('.glass');
-      if(!card) return;
-      document.querySelectorAll('#planCards .glass').forEach(c=> c.style.opacity = c===card? '1' : '.6');
-    });
-    document.getElementById('planCards').addEventListener('mouseleave', ()=>{
-      document.querySelectorAll('#planCards .glass').forEach(c=> c.style.opacity = '1');
+    const videoModal = $('#videoModal');
+    const openVideoModal = ()=>{ videoModal.classList.remove('hidden'); videoModal.classList.add('flex'); };
+    const closeVideoModal = ()=>{ videoModal.classList.add('hidden'); videoModal.classList.remove('flex'); };
+    $('#btnHeroVideo').addEventListener('click', openVideoModal);
+    $('#closeVideo').addEventListener('click', closeVideoModal);
+    $('#videoToForm').addEventListener('click', ()=>{ closeVideoModal(); openContato(); });
+    videoModal.addEventListener('click', (e)=>{ if(e.target===videoModal) closeVideoModal(); });
+
+    // WhatsApp
+    const whats = $('#whatsLink');
+    const defaultMsg = encodeURIComponent('Fala! Quero começar meus treinos no estilo maromba.');
+    whats.setAttribute('href', `https://wa.me/558399095400?text=${defaultMsg}`);
+    whats.setAttribute('target', '_blank'); whats.setAttribute('rel', 'noopener');
+    $('#floatWhats').href = whats.href;
+
+    // CTA plano -> form com sugestão de objetivo
+    $$('#planos button[data-open-form]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const plan = btn.getAttribute('data-open-form');
+        openContato();
+        const campo = document.querySelector('select[name="objetivo"]');
+        if (!campo) return;
+        if (plan==='Essencial') campo.value = 'Saúde/Qualidade de vida';
+        if (plan==='Performance') campo.value = 'Performance';
+        if (plan==='Elite') campo.value = 'Hipertrofia';
+      });
     });
 
-    // Dica de leitura some ao rolar
-    const hint = document.getElementById('readHint');
-    const hideHint = () => { if (window.scrollY > 120) hint?.classList.add('hidden'); };
-    window.addEventListener('scroll', hideHint, { passive:true });
+    // Form DEMO -> abre WhatsApp
+    $('#leadForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const nome = data.nome?.trim() || '—';
+      const email = data.email?.trim() || '—';
+      const objetivo = data.objetivo || '—';
+      const msg = data.msg?.trim();
+      const texto = ['Olá, Vinícius! Quero agendar uma consulta.',`Nome: ${nome}`,`E-mail: ${email}`,`Objetivo: ${objetivo}`, msg?`Mensagem: ${msg}`:null].filter(Boolean).join('\n');
+      const url = `https://wa.me/558399095400?text=${encodeURIComponent(texto)}`;
+      window.open(url, '_blank');
+      try {
+        const list = JSON.parse(localStorage.getItem('leads_maromba') || '[]');
+        list.push({...data, ts:new Date().toISOString()});
+        localStorage.setItem('leads_maromba', JSON.stringify(list));
+      } catch {}
+      const t = $('#toast'); t.classList.remove('hidden'); setTimeout(()=> t.classList.add('hidden'), 2200);
+      e.target.reset(); closeContato();
+      confettiAt(e.submitter); // festa!
+    });
+
+    // Confetti simples
+    function confettiAt(el){
+      if(!el) return;
+      const rect = el.getBoundingClientRect();
+      for(let i=0;i<18;i++){
+        const s = document.createElement('span');
+        s.style.position='fixed';
+        s.style.left = (rect.left+rect.width/2)+'px';
+        s.style.top = (rect.top)+'px';
+        s.style.width=s.style.height= (6+Math.random()*6)+'px';
+        s.style.background = ['#22d3ee','#22c55e','#fb7185','#fde047'][Math.floor(Math.random()*4)];
+        s.style.borderRadius='2px';
+        s.style.zIndex=9999;
+        s.style.pointerEvents='none';
+        s.style.transform=`translate(0,0) rotate(${Math.random()*360}deg)`;
+        document.body.appendChild(s);
+        const dx = (Math.random()*2-1)*140, dy = 120+Math.random()*160, rot = Math.random()*720;
+        s.animate([{transform:'translate(0,0) rotate(0deg)', opacity:1},{transform:`translate(${dx}px, ${dy}px) rotate(${rot}deg)`, opacity:0}],{duration:800+Math.random()*600, easing:'cubic-bezier(.2,.7,.2,1)', fill:'forwards'});
+        setTimeout(()=> s.remove(), 1600);
+      }
+    }
+
+    // Tilt 3D leve
+    function attachTilt(el){
+      if(!el) return;
+      let rAF=null;
+      function move(e){
+        const rect = el.getBoundingClientRect();
+        const x = (e.clientX - rect.left)/rect.width - .5;
+        const y = (e.clientY - rect.top)/rect.height - .5;
+        const rx = (y * -6).toFixed(2), ry = (x * 6).toFixed(2);
+        if(rAF) cancelAnimationFrame(rAF);
+        rAF = requestAnimationFrame(()=> el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`);
+      }
+      function leave(){ el.style.transform='perspective(800px) rotateX(0deg) rotateY(0deg)'; }
+      el.addEventListener('mousemove', move);
+      el.addEventListener('mouseleave', leave);
+    }
+    $$('.tilt').forEach(attachTilt);
+
+    // Magnet buttons (atração leve)
+    function attachMagnet(btn){
+      if(!btn) return;
+      const strength = 18;
+      let inside=false;
+      btn.addEventListener('mousemove', (e)=>{
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - (r.left + r.width/2);
+        const y = e.clientY - (r.top + r.height/2);
+        btn.style.transform = `translate(${x/strength}px, ${y/strength}px)`;
+        inside=true;
+      });
+      ['mouseleave','blur'].forEach(ev=> btn.addEventListener(ev, ()=>{ if(!inside) return; btn.style.transform='translate(0,0)'; inside=false; }));
+    }
+    $$('.magnet').forEach(attachMagnet);
+
+    // Glare que segue o mouse na mídia
+    const media = $('#heroCard .media'), glare = $('#heroCard .media .glare');
+    media?.addEventListener('mousemove', (e)=>{
+      const r = media.getBoundingClientRect();
+      const x = ((e.clientX - r.left)/r.width*100).toFixed(2)+'%';
+      const y = ((e.clientY - r.top)/r.height*100).toFixed(2)+'%';
+      glare?.style.setProperty('--x', x);
+      glare?.style.setProperty('--y', y);
+    });
+
+    // Dica some ao rolar
+    const hint = $('#readHint');
+    window.addEventListener('scroll', ()=>{ if(window.scrollY>120) hint?.classList.add('hidden'); }, {passive:true});
+
+    // Contadores
+    const counters = $$('.counter');
+    const ioCount = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = +el.getAttribute('data-target');
+        let cur = 0;
+        const step = Math.ceil(target/60);
+        const tick = ()=> {
+          cur += step; if(cur>target) cur=target;
+          el.textContent = cur.toLocaleString('pt-BR');
+          if(cur<target) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        ioCount.unobserve(el);
+      });
+    },{threshold:.6});
+    counters.forEach(c=> ioCount.observe(c));
+
+    // Float actions -> abrir contato
+    $('#floatCta').addEventListener('click', openContato);
+
+    // Ações do vídeo->form já conectadas acima
   </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'981265ca4365f1dd',t:'MTc1ODIxNDgwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'981276f367cd5cf3',t:'MTc1ODIxNTUwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
