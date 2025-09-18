@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-lang="pt">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -10,190 +10,215 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --brand: #22d3ee;
-      --brand-2: #22c55e;
-      --ink: #0f172a;
-      --ink-2: #060a17;
-      --accent: #fb7185;
-      --glow: 0 0 32px rgba(34,211,238,.25), 0 0 64px rgba(34,211,238,.15);
+    :root{
+      --brand:#22d3ee; --brand2:#22c55e; --ink:#0f172a; --ink2:#0b1226; --accent:#fb7185;
     }
-    html, body { height:100%; }
-    body {
-      color:#e5e7eb; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    html,body{height:100%}
+    body{
+      color:#e5e7eb; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
       background:
-        radial-gradient(1200px 800px at 10% -10%, rgba(34,211,238,.14), transparent 60%),
-        radial-gradient(900px 700px at 90% 0%, rgba(34,197,94,.12), transparent 60%),
-        radial-gradient(800px 700px at 50% 115%, rgba(251,113,133,.10), transparent 60%),
-        linear-gradient(180deg, var(--ink), var(--ink-2));
+        radial-gradient(1200px 700px at 10% -10%, rgba(34,211,238,.16), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(34,197,94,.12), transparent 60%),
+        radial-gradient(700px 500px at 50% 110%, rgba(251,113,133,.10), transparent 60%),
+        linear-gradient(180deg, var(--ink), var(--ink2));
       overflow-x:hidden;
     }
-    /* Fundo animado: gradiente vivo suave */
-    .bg-animated::before {
-      content:""; position:fixed; inset:-20% -10%; z-index:-1;
-      background: conic-gradient(from 180deg, rgba(34,211,238,.07), rgba(34,197,94,.07), rgba(251,113,133,.06), rgba(34,211,238,.07));
-      filter: blur(80px); animation: swirl 24s linear infinite;
-      opacity:.75;
+    .bg-animated::before{
+      content:""; position:fixed; inset:-15% -10%; z-index:-1;
+      background: conic-gradient(from 0deg, rgba(34,211,238,.05), rgba(34,197,94,.05), rgba(251,113,133,.04), rgba(34,211,238,.05));
+      filter: blur(80px); animation: swirl 28s linear infinite;
+      opacity:.6;
     }
-    @keyframes swirl { to { transform: rotate(1turn); } }
+    @keyframes swirl{ to{ transform: rotate(1turn) } }
 
-    .title { font-family: Anton, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; letter-spacing:.5px; }
+    .title{ font-family: Anton, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; letter-spacing:.5px; }
+    .glass{ background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.09); backdrop-filter: blur(10px); transition: transform .35s ease, box-shadow .35s ease; }
+    .glass:hover{ transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,.28); }
 
-    .glass { background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); backdrop-filter: blur(10px); transition: transform .35s ease, box-shadow .35s ease; }
-    .glass:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .btn{ position:relative; overflow:hidden; transition: transform .18s ease, filter .2s ease; }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+    .btn::after{ content:""; position:absolute; top:-60%; left:-30%; width:40%; height:220%; background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent); transform: translateX(-160%) rotate(12deg); }
+    .btn:hover::after{ animation: shine .9s ease; }
+    @keyframes shine{ to{ transform: translateX(280%) rotate(12deg) } }
 
-    .btn { position:relative; overflow:hidden; transition: transform .18s ease, filter .2s ease, opacity .2s ease; will-change:transform, filter; }
-    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
-    /* Passada de brilho */
-    .btn::after { content:""; position:absolute; top:-60%; left:-30%; width:40%; height:220%; background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent); transform: translateX(-160%) rotate(12deg); }
-    .btn:hover::after { animation: shine .9s ease; }
-    @keyframes shine { to { transform: translateX(280%) rotate(12deg); } }
+    #btnHeroCta,#btnNavCta{ animation: pulseGlow 2.8s ease-in-out infinite; box-shadow: 0 0 0 0 rgba(34,211,238,.0); }
+    @keyframes pulseGlow{ 0%,100%{box-shadow:0 0 0 0 rgba(34,211,238,.00)} 50%{box-shadow:0 0 0 12px rgba(34,211,238,.06)} }
 
-    /* PULSE leve nos CTAs principais */
-    #btnHeroCta, #btnNavCta { animation: pulseGlow 2.6s ease-in-out infinite; box-shadow: 0 0 0 0 rgba(34,211,238,.0); }
-    @keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(34,211,238,.00)} 50%{box-shadow:0 0 0 14px rgba(34,211,238,.06)} }
+    .chip{ background: linear-gradient(90deg, rgba(34,211,238,.15), rgba(34,197,94,.15)); border:1px solid rgba(255,255,255,.12); }
+    .reveal{ opacity:0; transform: translateY(18px) scale(.985); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.show{ opacity:1; transform: translateY(0) scale(1); }
+    .tilt{ transform-style: preserve-3d; perspective: 800px; transition: transform .12s ease; }
+    .tilt-inner{ transform: translateZ(28px); }
 
-    .chip { background: linear-gradient(90deg, rgba(34,211,238,.15), rgba(34,197,94,.15)); border:1px solid rgba(255,255,255,.12); }
+    .navlink{ position:relative; }
+    .navlink::after{ content:""; position:absolute; left:0; right:100%; bottom:-6px; height:2px; background: linear-gradient(90deg, var(--brand), var(--brand2)); transition:right .25s ease; }
+    .navlink:hover::after,.navlink.active::after{ right:0; }
+    .navlink.active{ color:#fff; }
 
-    /* Apresentação ao rolar */
-    .reveal { opacity:0; transform: translateY(18px) scale(.985); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.show { opacity:1; transform: translateY(0) scale(1); }
+    #progressBar{ box-shadow: 0 0 10px rgba(34,211,238,.55); }
 
-    /* Partículas orbitais */
-    .orb { position:absolute; border-radius:50%; filter: blur(18px); opacity:.55; mix-blend: screen; }
-    .orb--a { width:180px; height:180px; background: radial-gradient(circle at 30% 30%, #22d3ee, transparent 60%); animation: driftA 18s ease-in-out infinite; }
-    .orb--b { width:140px; height:140px; background: radial-gradient(circle at 60% 40%, #22c55e, transparent 60%); animation: driftB 22s ease-in-out infinite; }
-    .orb--c { width:160px; height:160px; background: radial-gradient(circle at 40% 60%, #fb7185, transparent 60%); animation: driftC 26s ease-in-out infinite; }
-    @keyframes driftA { 0%{transform: translate(-20px,0)} 50%{transform: translate(20px,10px)} 100%{transform: translate(-20px,0)} }
-    @keyframes driftB { 0%{transform: translate(0,-10px)} 50%{transform: translate(-18px,8px)} 100%{transform: translate(0,-10px)} }
-    @keyframes driftC { 0%{transform: translate(10px,0)} 50%{transform: translate(-12px,-10px)} 100%{transform: translate(10px,0)} }
+    .glare{ position:absolute; inset:0; pointer-events:none; background: radial-gradient(220px 220px at var(--x,50%) var(--y,50%), rgba(255,255,255,.38), transparent 46%); mix-blend: overlay; opacity:.25; transition: opacity .2s ease; }
+    .media:hover .glare{ opacity:.45; }
 
-    /* Efeito tilt 3D nos cartões */
-    .tilt { transform-style: preserve-3d; perspective: 800px; transition: transform .12s ease; }
-    .tilt-inner { transform: translateZ(30px); }
+    .gradient-border{ position:relative; border-radius: 1.5rem; }
+    .gradient-border::before{
+      content:""; position:absolute; inset:0; border-radius:inherit; padding:1px; background: linear-gradient(135deg, rgba(34,211,238,.5), rgba(34,197,94,.4));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+      pointer-events:none;
+    }
 
-    /* Nav hover underline fluido */
-    .navlink { position:relative; }
-    .navlink::after { content:""; position:absolute; left:0; right:100%; bottom:-6px; height:2px; background: linear-gradient(90deg, var(--brand), var(--brand-2)); transition: right .25s ease; }
-    .navlink:hover::after { right:0; }
+    #siteHeader .bar{ display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
 
-    /* Wave separador animado */
-    .wave path { animation: wave 10s linear infinite; }
-    @keyframes wave { to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce){
+      .bg-animated::before{ animation:none }
+      .reveal{ transition:none }
+      .btn::after, #btnHeroCta, #btnNavCta{ animation:none }
+    }
 
-    /* Badge “novo” animado */
-    .ping { position:relative; }
-    .ping::before { content:""; position:absolute; inset:-4px; border-radius:999px; box-shadow: 0 0 0 0 rgba(34,211,238,.55); animation: ping 1.8s ease-out infinite; }
-    @keyframes ping { 0%{box-shadow:0 0 0 0 rgba(34,211,238,.45)} 100%{box-shadow:0 0 0 18px rgba(34,211,238,0)} }
+    /* Mobile drawer */
+    .drawer-enter{ transform: translateX(100%); opacity:0; }
+    .drawer-show{ transform: translateX(0); opacity:1; }
 
-    /* Mouse move light glare na imagem */
-    .glare { position:absolute; pointer-events:none; inset:0; background: radial-gradient(200px 200px at var(--x,50%) var(--y,50%), rgba(255,255,255,.35), transparent 45%); mix-blend: overlay; opacity:.25; transition: opacity .2s ease; }
-    .media:hover .glare { opacity:.45; }
-
-    /* Botão magnético */
-    .magnet { transition: transform .08s ease; will-change: transform; }
-
-    /* Scroll progress */
-    #progressBar { box-shadow: 0 0 10px rgba(34,211,238,.55); }
-
-    /* Contadores */
-    .counter { text-shadow: var(--glow); }
-
-    /* Backdrop sutil no header ao rolar */
-    #siteHeader.scrolled { background: rgba(0,0,0,.6); }
-
-    /* Marquee de conquistas */
-    .marquee { overflow:hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
-    .marquee-track { display:flex; gap:18px; white-space:nowrap; animation: marquee 28s linear infinite; }
-    @keyframes marquee { to { transform: translateX(-50%); } }
+    /* Carousel */
+    .carousel-track{ display:flex; gap:16px; transition: transform .4s ease; }
+    .rating-star{ filter: drop-shadow(0 0 6px rgba(250,204,21,.35)); }
   </style>
+<style>
+  :root{ color-scheme: dark; }
+  /* Controles sempre escuros e legíveis (força sobre estilos do navegador) */
+  select, input, textarea { background-color: rgba(11,18,38,.85) !important; color:#e5e7eb !important; border:1px solid rgba(255,255,255,.12) !important; }
+  select:hover, input:hover, textarea:hover { background-color: rgba(11,18,38,.92) !important; }
+  select:focus, input:focus, textarea:focus { outline:none !important; box-shadow:0 0 0 2px rgba(34,211,238,.35) !important; }
+  /* Aparência consistente nos selects */
+  #langSel, #onGoal, #onFreq, #onTime, #cAct { -webkit-appearance:none; appearance:none; padding-right:2rem; background-image: linear-gradient(45deg, transparent 50%, #9ca3af 50%), linear-gradient(135deg, #9ca3af 50%, transparent 50%); background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%; background-size:6px 6px, 6px 6px; background-repeat:no-repeat; }
+  /* Itens do menu do select */
+  select option{ background-color:#0b1226; color:#e5e7eb; }
+  /* Autofill claro no Chrome */
+  input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus{
+    -webkit-text-fill-color:#e5e7eb; box-shadow: 0 0 0px 1000px rgba(11,18,38,.92) inset; transition: background-color 9999s ease-in-out 0s;
+  }
+
+  /* Bolhas flutuantes de fundo (mais visíveis) */
+  .orbs-bg{ position:fixed; inset:-10% -10% auto -10%; height:60vh; z-index:-5; pointer-events:none; }
+  .orb-ball{ position:absolute; border-radius:999px; filter: blur(14px); opacity:.48; mix-blend:screen; }
+  .orb-a{ width:160px; height:160px; background:rgba(34,211,238,.38); left:8%; top:12%; animation: drift1 16s ease-in-out infinite; }
+  .orb-b{ width:130px; height:130px; background:rgba(34,197,94,.34); right:10%; top:20%; animation: drift2 20s ease-in-out infinite; }
+  .orb-c{ width:170px; height:170px; background:rgba(251,113,133,.32); left:18%; bottom:0; animation: drift3 24s ease-in-out infinite; }
+  .orb-d{ width:110px; height:110px; background:rgba(34,211,238,.30); right:22%; bottom:10%; animation: drift4 22s ease-in-out infinite; }
+  @keyframes drift1{ 0%{ transform:translate(0,0)} 50%{ transform:translate(26px,-20px)} 100%{ transform:translate(0,0)} }
+  @keyframes drift2{ 0%{ transform:translate(0,0)} 50%{ transform:translate(-24px,16px)} 100%{ transform:translate(0,0)} }
+  @keyframes drift3{ 0%{ transform:translate(0,0)} 50%{ transform:translate(22px,24px)} 100%{ transform:translate(0,0)} }
+  @keyframes drift4{ 0%{ transform:translate(0,0)} 50%{ transform:translate(-18px,-16px)} 100%{ transform:translate(0,0)} }
+</style>
 </head>
 <body class="antialiased bg-animated">
+  <!-- Bolhas flutuantes de fundo -->
+  <div class="orbs-bg" aria-hidden="true">
+    <div class="orb-ball orb-a"></div>
+    <div class="orb-ball orb-b"></div>
+    <div class="orb-ball orb-c"></div>
+    <div class="orb-ball orb-d"></div>
+  </div>
   <!-- Header -->
-  <header id="siteHeader" class="sticky top-0 z-50 backdrop-blur border-b border-white/10 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center gap-3 flex-wrap">
+  <header id="siteHeader" class="fixed top-0 left-0 w-full z-50 backdrop-blur bg-black/40 border-b border-white/10 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 bar">
+      <!-- Mobile: hamburger -->
+      <button id="hamburger" class="md:hidden btn rounded-lg px-3 py-2 bg-white/5 border border-white/10 text-white">☰</button>
+
+      <!-- Marca -->
       <div class="flex items-center gap-3 flex-shrink-0">
-        <div class="h-10 w-10 rounded-lg overflow-hidden ring-1 ring-cyan-400/40 bg-white/5 group">
-          <img src="Gemini_Generated_Image_f35caqf35caqf35c.png" alt="Marca Team Taurus" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src=''; this.alt='Imagem não carregou'; this.style.display='none';"/>
+        <div class="h-9 w-9 rounded-lg overflow-hidden ring-1 ring-cyan-400/40 bg-white/5">
+          <img src="Gemini_Generated_Image_f35caqf35caqf35c.png" alt="Marca" class="w-full h-full object-cover" onerror="this.src=''; this.alt='Imagem não carregou'; this.style.display='none';"/>
         </div>
         <div>
-          <p class="title text-xl md:text-2xl text-white tracking-wide">Vinícius Azevedo</p>
-          <p class="text-xs text-cyan-300/80 uppercase tag-demo">Personal Trainer</p>
+          <p class="title text-xl md:text-2xl text-white tracking-wide" data-i18n="brand">Vinícius Azevedo</p>
+          <p class="text-xs text-cyan-300/80 uppercase" data-i18n="role">Personal Trainer</p>
         </div>
       </div>
 
-      <nav class="hidden md:flex items-center gap-5 text-sm flex-wrap md:flex-nowrap mx-auto">
-        <a href="#beneficios" class="text-gray-300 hover:text-white navlink">Benefícios</a>
-        <a href="#planos" class="text-gray-300 hover:text-white navlink">Planos</a>
-        <a href="#sobre-mim" class="text-gray-300 hover:text-white navlink">Sobre mim</a>
-        <a href="#faq" class="text-gray-300 hover:text-white navlink">FAQ</a>
+      <!-- Navegação desktop -->
+      <nav class="hidden md:flex items-center gap-5 text-sm mx-auto">
+        <a href="#beneficios" class="text-gray-300 hover:text-white navlink" data-i18n="nav_benefits">Benefícios</a>
+        <a href="#planos" class="text-gray-300 hover:text-white navlink" data-i18n="nav_plans">Planos</a>
+        <a href="#sobre-mim" class="text-gray-300 hover:text-white navlink" data-i18n="nav_about">Sobre mim</a>
+        <a href="#faq" class="text-gray-300 hover:text-white navlink" data-i18n="nav_faq">FAQ</a>
+        <a href="#extras" class="text-gray-300 hover:text-white navlink" data-i18n="nav_extras">Extras</a>
       </nav>
 
-      <div class="ml-auto"></div>
-      <button id="btnNavCta" class="btn magnet inline-flex items-center gap-2 rounded-lg px-3 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold whitespace-normal max-w-[48%] md:max-w-none truncate">
-        <span>Agendar consulta</span>
-      </button>
-      <button id="backToTop" class="hidden md:inline-flex ml-2 rounded-lg px-3 py-2 bg-white/5 border border-white/10 text-white text-xs hover:bg-white/10">Topo ↑</button>
+      <!-- Acessibilidade e Idiomas -->
+      <div class="ml-auto flex items-center gap-2">
+        <button id="toggleFont" class="btn rounded-md px-2.5 py-1.5 bg-white/5 border border-white/10 text-white text-xs" data-i18n="a11y_text">Texto A+</button>
+        <button id="toggleMotion" class="btn rounded-md px-2.5 py-1.5 bg-white/5 border border-white/10 text-white text-xs" data-i18n="a11y_motion">Menos animações</button>
+        <select id="langSel" class="rounded-md bg-white/10 hover:bg-white/15 border border-white/10 px-2 py-1 pl-2 pr-7 text-white text-xs focus:outline-none focus:ring-2 focus:ring-cyan-400/50 min-w-[88px]">
+          <option value="pt">🇧🇷 PT</option>
+          <option value="en">🇺🇸 EN</option>
+        </select>
+        <button id="btnNavCta" class="btn inline-flex items-center gap-2 rounded-lg px-3 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold whitespace-normal">
+          <span data-i18n="cta_book">Agendar consulta</span>
+        </button>
+      </div>
     </div>
     <div id="progressBar" class="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-400 to-emerald-400 w-0"></div>
   </header>
 
-  <!-- Orbs decorativas -->
-  <div class="orb orb--a" style="top:12%; left:6%;"></div>
-  <div class="orb orb--b" style="top:18%; right:8%;"></div>
-  <div class="orb orb--c" style="bottom:10%; left:14%;"></div>
+  <!-- Drawer Mobile -->
+  <div id="drawer" class="fixed inset-0 z-50 hidden">
+    <div id="drawerBackdrop" class="absolute inset-0 bg-black/60"></div>
+    <aside class="absolute right-0 top-0 h-full w-80 bg-slate-900/95 border-l border-white/10 p-6 drawer-enter transition-all duration-300">
+      <div class="flex items-center justify-between">
+        <p class="title text-xl">Menu</p>
+        <button id="drawerClose" class="text-gray-300 hover:text-white">✕</button>
+      </div>
+      <nav class="mt-6 grid gap-3 text-sm">
+        <a href="#beneficios" class="navlink text-gray-300 hover:text-white" data-i18n="nav_benefits">Benefícios</a>
+        <a href="#planos" class="navlink text-gray-300 hover:text-white" data-i18n="nav_plans">Planos</a>
+        <a href="#sobre-mim" class="navlink text-gray-300 hover:text-white" data-i18n="nav_about">Sobre mim</a>
+        <a href="#faq" class="navlink text-gray-300 hover:text-white" data-i18n="nav_faq">FAQ</a>
+        <a href="#extras" class="navlink text-gray-300 hover:text-white" data-i18n="nav_extras">Extras</a>
+      </nav>
+      <div class="mt-6 grid gap-2">
+        <button class="btn rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold" id="drawerCta" data-i18n="cta_book">Agendar consulta</button>
+        <a id="drawerWhats" class="btn rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Spacer for fixed header -->
+  <div class="h-16 md:h-20"></div>
 
   <!-- Hero -->
   <section class="relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 pt-14 pb-12 md:pt-20 md:pb-16 grid grid-cols-12 gap-5 items-center reveal">
+    <div class="max-w-7xl mx-auto px-6 pt-8 pb-12 md:pt-10 md:pb-16 grid grid-cols-12 gap-5 items-center reveal">
       <div class="col-span-12 md:col-span-7">
         <div class="inline-flex items-center gap-2 chip rounded-full px-3 py-1 text-xs text-cyan-200">
-          <span class="h-2 w-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
-          Resultados reais, sem mimimi
+          <span class="h-2 w-2 rounded-full bg-emerald-400 inline-block"></span>
+          <span data-i18n="hero_chip">Resultados reais, sem mimimi</span>
         </div>
-        <h1 class="title text-4xl md:text-6xl mt-5 leading-tight text-white">Vinícius <span class="text-cyan-300" style="text-shadow: var(--glow)">Personal Trainer</span></h1>
+        <h1 class="title text-4xl md:text-6xl mt-5 leading-tight text-white">
+          <span data-i18n="brand">Vinícius Azevedo</span> <span class="text-cyan-300" style="text-shadow:0 0 28px rgba(34,211,238,.35)" data-i18n="role">Personal Trainer</span>
+        </h1>
         <p id="typeLine" class="mt-3 text-cyan-200/90 text-base md:text-lg"></p>
-        <p class="text-gray-300 mt-4 md:text-lg max-w-xl">
+        <p class="text-gray-300 mt-4 md:text-lg max-w-xl" data-i18n="hero_sub">
           Treinos personalizados, orientação de treino e acompanhamento de verdade. Difícil? É. Impossível? Nunca.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row gap-4">
-          <button id="btnHeroCta" class="btn magnet rounded-xl px-6 py-3 text-ink font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 ring-1 ring-white/10">
+          <button id="btnHeroCta" class="btn rounded-xl px-6 py-3 text-ink font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 ring-1 ring-white/10" data-i18n="cta_book">
             Agendar consulta
           </button>
-          <button id="btnHeroVideo" class="btn rounded-xl px-6 py-3 font-semibold text-white/90 bg-white/5 border border-white/10 hover:bg-white/10">
+          <a id="btnHeroVideo" href="#planos" class="btn rounded-xl px-6 py-3 font-semibold text-white/90 bg-white/5 border border-white/10 hover:bg-white/10" data-i18n="cta_how">
             Ver como funciona ▶
-          </button>
+          </a>
         </div>
         <div class="mt-6 flex items-center gap-6 text-sm text-gray-300">
-          <div class="flex items-center gap-2"><span class="text-emerald-400">⬤</span> Acompanhamento semanal</div>
-          <div class="flex items-center gap-2"><span class="text-cyan-400">⬤</span> Treino sob medida</div>
-          <div class="flex items-center gap-2"><span class="text-pink-400">⬤</span> 100% focado no seu objetivo</div>
-        </div>
-
-        <!-- Marquee de conquistas -->
-        <div class="marquee mt-7">
-          <div class="marquee-track text-sm text-cyan-200/80">
-            <span class="px-3">+4.2kg massa magra em 8 semanas</span>
-            <span class="px-3">PR agacho +25%</span>
-            <span class="px-3">Consistência 90 dias</span>
-            <span class="px-3">Sono regulado</span>
-            <span class="px-3">Dor lombar zerada</span>
-            <span class="px-3">Mobilidade ↑</span>
-            <!-- duplicado para loop fluido -->
-            <span class="px-3">+4.2kg massa magra em 8 semanas</span>
-            <span class="px-3">PR agacho +25%</span>
-            <span class="px-3">Consistência 90 dias</span>
-            <span class="px-3">Sono regulado</span>
-            <span class="px-3">Dor lombar zerada</span>
-            <span class="px-3">Mobilidade ↑</span>
-          </div>
+          <div class="flex items-center gap-2"><span class="text-emerald-400">⬤</span> <span data-i18n="hero_p1">Acompanhamento semanal</span></div>
+          <div class="flex items-center gap-2"><span class="text-cyan-400">⬤</span> <span data-i18n="hero_p2">Treino sob medida</span></div>
+          <div class="flex items-center gap-2"><span class="text-pink-400">⬤</span> <span data-i18n="hero_p3">100% focado no seu objetivo</span></div>
         </div>
       </div>
 
       <!-- Visual -->
       <div class="col-span-12 md:col-span-5">
-        <div id="heroCard" class="glass rounded-3xl p-0 md:p-0 relative overflow-hidden tilt">
-          <!-- Blobs parallax -->
+        <div id="heroCard" class="gradient-border glass rounded-3xl p-0 relative overflow-hidden tilt">
           <div class="absolute -top-16 -right-10 h-56 w-56 rounded-full bg-cyan-400/20 blur-2xl translate-y-0 will-change-transform" id="blobA"></div>
           <div class="absolute -bottom-20 -left-12 h-52 w-52 rounded-full bg-emerald-400/20 blur-2xl translate-y-0 will-change-transform" id="blobB"></div>
 
@@ -208,31 +233,25 @@
             />
           </div>
 
-          <!-- Badges animadas -->
-          <div class="absolute top-4 left-4 flex gap-2">
-            <span class="ping text-[10px] px-2 py-1 rounded-full bg-white/10 border border-white/15">Resultados rápidos</span>
-            <span class="text-[10px] px-2 py-1 rounded-full bg-emerald-400/20 text-emerald-200 border border-emerald-400/30">Método tauros</span>
-          </div>
-
-          <!-- Trinca de pilares responsiva -->
+          <!-- Pilares -->
           <div class="p-5 md:p-6">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm *:min-h-[82px]">
               <div class="rounded-xl p-4 bg-white/5 border border-white/10 tilt">
                 <div class="tilt-inner">
-                  <p class="text-gray-400">Treinos</p>
-                  <p class="text-white font-semibold">Periodizados</p>
+                  <p class="text-gray-400" data-i18n="pillars_1a">Treinos</p>
+                  <p class="text-white font-semibold" data-i18n="pillars_1b">Periodizados</p>
                 </div>
               </div>
               <div class="rounded-xl p-4 bg-white/5 border border-white/10 tilt">
                 <div class="tilt-inner">
-                  <p class="text-gray-400">Técnica</p>
-                  <p class="text-white font-semibold">Execução correta</p>
+                  <p class="text-gray-400" data-i18n="pillars_2a">Técnica</p>
+                  <p class="text-white font-semibold" data-i18n="pillars_2b">Execução correta</p>
                 </div>
               </div>
               <div class="rounded-xl p-4 bg-white/5 border border-white/10 tilt">
                 <div class="tilt-inner">
-                  <p class="text-gray-400">Suporte</p>
-                  <p class="text-white font-semibold">No dia a dia</p>
+                  <p class="text-gray-400" data-i18n="pillars_3a">Suporte</p>
+                  <p class="text-white font-semibold" data-i18n="pillars_3b">No dia a dia</p>
                 </div>
               </div>
             </div>
@@ -242,350 +261,617 @@
           <div class="px-5 pb-6 md:px-6 grid grid-cols-3 gap-3 text-center">
             <div class="rounded-xl bg-white/5 border border-white/10 py-3">
               <p class="counter text-2xl font-extrabold text-white" data-target="120">0</p>
-              <p class="text-[11px] text-gray-300">Alunos</p>
+              <p class="text-[11px] text-gray-300" data-i18n="metric_1">Alunos</p>
             </div>
             <div class="rounded-xl bg-white/5 border border-white/10 py-3">
               <p class="counter text-2xl font-extrabold text-white" data-target="4500">0</p>
-              <p class="text-[11px] text-gray-300">Treinos</p>
+              <p class="text-[11px] text-gray-300" data-i18n="metric_2">Treinos</p>
             </div>
             <div class="rounded-xl bg-white/5 border border-white/10 py-3">
               <p class="counter text-2xl font-extrabold text-white" data-target="98">0</p>
-              <p class="text-[11px] text-gray-300">Satisfação %</p>
+              <p class="text-[11px] text-gray-300" data-i18n="metric_3">Satisfação %</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Wave separador -->
-    <div class="wave relative h-10 overflow-hidden -mt-4 opacity-60">
-      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="absolute w-[200%] h-full">
-        <path d="M0,0 C300,100 900,0 1200,100 L1200,120 L0,120 Z" fill="rgba(34,211,238,.10)"></path>
+    <!-- Divisor -->
+    <div class="relative h-8 -mt-2 opacity-60">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="absolute w-full h-full">
+        <path d="M0,0 C300,80 900,20 1200,100 L1200,120 L0,120 Z" fill="rgba(34,211,238,.10)"></path>
       </svg>
+    </div>
+  </section>
+
+  <!-- O que você recebe -->
+  <section id="extras" class="max-w-7xl mx-auto px-6 py-12 md:py-16 reveal">
+    <div class="glass rounded-3xl p-6 md:p-8">
+      <h2 class="title text-2xl md:text-4xl text-white" data-i18n="value_title">O que você recebe</h2>
+      <p class="text-gray-300 mt-2" data-i18n="value_sub">Um acompanhamento completo para acelerar seus resultados.</p>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="rounded-2xl p-5 bg-white/5 border border-white/10">
+          <p class="font-semibold text-white">Treino</p>
+          <p class="text-gray-300 text-sm mt-1">Plano customizado e progressivo.</p>
+        </div>
+        <div class="rounded-2xl p-5 bg-white/5 border border-white/10">
+          <p class="font-semibold text-white">Correção técnica</p>
+          <p class="text-gray-300 text-sm mt-1">Ajustes de execução e postura.</p>
+        </div>
+        <div class="rounded-2xl p-5 bg-white/5 border border-white/10">
+          <p class="font-semibold text-white">Suporte</p>
+          <p class="text-gray-300 text-sm mt-1">Dúvidas e feedbacks no dia a dia.</p>
+        </div>
+        <div class="rounded-2xl p-5 bg-white/5 border border-white/10">
+          <p class="font-semibold text-white">Progresso</p>
+          <p class="text-gray-300 text-sm mt-1">Acompanhamento e metas claras.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Benefícios -->
   <section id="beneficios" class="max-w-7xl mx-auto px-6 py-14 md:py-20">
-    <div class="mx-auto max-w-2xl text-center mb-3">
-      <div id="readHint" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">
-        <span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span>
-        Continue descendo — tem mais!
-      </div>
-    </div>
     <div class="text-center">
-      <h2 class="title text-3xl md:text-5xl text-white">Simples, Direto e que Funciona</h2>
-      <p class="text-gray-300 mt-3">Sem frescura: treino inteligente, execução correta e consistência.</p>
+      <h2 class="title text-3xl md:text-5xl text-white" data-i18n="benefits_title">Simples, Direto e que Funciona</h2>
+      <p class="text-gray-300 mt-3" data-i18n="benefits_sub">Sem frescura: treino inteligente, execução correta e consistência.</p>
     </div>
-    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal" id="benefitGrid">
-      <div class="glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal">
+      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
         <div class="tilt-inner">
           <div class="h-10 w-10 grid place-items-center rounded-lg bg-cyan-400/20 text-cyan-300 mb-4">🏋️</div>
-          <p class="text-white font-semibold">Treino sob medida</p>
-          <p class="text-gray-300 text-sm mt-1">Planos montados para seu objetivo e rotina.</p>
+          <p class="text-white font-semibold" data-i18n="b1_title">Treino sob medida</p>
+          <p class="text-gray-300 text-sm mt-1" data-i18n="b1_txt">Planos montados para seu objetivo e rotina.</p>
         </div>
       </div>
-      <div class="glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
+      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
         <div class="tilt-inner">
           <div class="h-10 w-10 grid place-items-center rounded-lg bg-emerald-400/20 text-emerald-300 mb-4">✅</div>
-          <p class="text-white font-semibold">Técnica e execução</p>
-          <p class="text-gray-300 text-sm mt-1">Mais performance, menos lesão.</p>
+          <p class="text-white font-semibold" data-i18n="b2_title">Técnica e execução</p>
+          <p class="text-gray-300 text-sm mt-1" data-i18n="b2_txt">Mais performance, menos lesão.</p>
         </div>
       </div>
-      <div class="glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
+      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
         <div class="tilt-inner">
           <div class="h-10 w-10 grid place-items-center rounded-lg bg-pink-400/20 text-pink-300 mb-4">❤️</div>
-          <p class="text-white font-semibold">Saúde em dia</p>
-          <p class="text-gray-300 text-sm mt-1">Energia, sono e disposição alinhados.</p>
+          <p class="text-white font-semibold" data-i18n="b3_title">Saúde em dia</p>
+          <p class="text-gray-300 text-sm mt-1" data-i18n="b3_txt">Energia, sono e disposição alinhados.</p>
         </div>
       </div>
-      <div class="glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
+      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl tilt">
         <div class="tilt-inner">
           <div class="h-10 w-10 grid place-items-center rounded-lg bg-yellow-400/20 text-yellow-300 mb-4">⏱️</div>
-          <p class="text-white font-semibold">Cabe na agenda</p>
-          <p class="text-gray-300 text-sm mt-1">Treinos inteligentes em menos tempo.</p>
+          <p class="text-white font-semibold" data-i18n="b4_title">Cabe na agenda</p>
+          <p class="text-gray-300 text-sm mt-1" data-i18n="b4_txt">Treinos em menos tempo com eficiência.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Sobre mim -->
-  <section id="sobre-mim" class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
-    <div class="text-center mb-10">
-      <h2 class="title text-3xl md:text-5xl text-white">Sobre mim</h2>
-      <p class="text-gray-300 mt-3 max-w-2xl mx-auto">Educador físico formado pela UNIESP, com projetos voluntários na UFPB, especialista em spinning, alongamentos e treinos personalizados.</p>
+  <!-- Comparador de Planos -->
+  <section id="planos" class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
+    <div class="text-center">
+      <h2 class="title text-3xl md:text-5xl text-white" data-i18n="plans_title">Planos com o Vinícius Azevedo</h2>
+      <p class="text-gray-300 mt-3" data-i18n="plans_sub">Escolha o período e veja os benefícios.</p>
     </div>
-    <div class="max-w-3xl mx-auto">
-      <div class="glass rounded-3xl p-6 md:p-8 text-center tilt">
-        <p class="tilt-inner text-gray-300 leading-relaxed">Sou educador físico formado pela UNIESP. Atuo com diferentes objetivos e níveis, alinhando técnica e constância para construir resultados reais no seu ritmo.</p>
+
+    <div class="mt-6 flex items-center justify-center gap-2">
+      <div class="bg-white/5 border border-white/10 rounded-full p-1 inline-flex text-sm">
+        <button data-bill="mensal" class="planTab px-3 py-1.5 rounded-full text-white bg-cyan-500/30" data-i18n="bill_monthly">Mensal</button>
+        <button data-bill="trimestral" class="planTab px-3 py-1.5 rounded-full text-gray-200 hover:text-white" data-i18n="bill_quarterly">Trimestral</button>
+        <button data-bill="anual" class="planTab px-3 py-1.5 rounded-full text-gray-200 hover:text-white" data-i18n="bill_yearly">Anual</button>
       </div>
     </div>
-  </section>
 
-  <!-- Planos -->
-  <section id="planos" class="max-w-7xl mx-auto px-6 py-14 md:py-20">
-    <div class="text-center">
-      <h2 class="title text-3xl md:text-5xl text-white">Planos com o Vinícius Azevedo</h2>
-      <p class="text-gray-300 mt-3">Comece com o que faz sentido pra você. Crescemos juntos.</p>
-    </div>
-
-    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 reveal" id="planCards">
-      <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px] tilt">
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6" id="planCards">
+      <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px] tilt" data-plan="Essencial">
         <div class="tilt-inner flex flex-col h-full">
           <div class="flex items-center justify-between">
             <p class="text-white font-semibold">Essencial</p>
             <span class="px-2 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">Iniciante</span>
           </div>
-          <p class="text-3xl font-extrabold mt-2 text-white">R$ 129<span class="text-sm text-gray-400">/mês</span></p>
-          <ul class="mt-4 space-y-2 text-sm text-gray-300">
+          <p class="text-3xl font-extrabold mt-2 text-white price" data-mensal="129" data-trimestral="349" data-anual="1190">R$ 129<span class="text-sm text-gray-400">/mês</span></p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-300 benefits">
             <li>• Treino personalizado</li>
-            <li>• Check-in quinzenal</li>
+            <li data-extra="trimestral,anual" class="hidden">• Ajuste mensal do plano</li>
+            <li data-extra="anual" class="hidden">• 1 mês bônus</li>
           </ul>
-          <button data-open-form="Essencial" class="btn magnet mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
+          <button data-open-form="Essencial" class="btn mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold" data-i18n="cta_book">Agendar consulta</button>
         </div>
       </div>
 
-      <div class="glass rounded-3xl p-6 flex flex-col ring-1 ring-cyan-400/30 min-h-[360px] tilt">
+      <div class="glass rounded-3xl p-6 flex flex-col ring-1 ring-cyan-400/30 min-h-[360px] tilt" data-plan="Performance">
         <div class="tilt-inner flex flex-col h-full">
           <div class="flex items-center justify-between">
             <p class="text-white font-semibold">Performance</p>
             <span class="px-2 py-1 rounded-full bg-cyan-400/20 text-cyan-200 text-xs border border-cyan-400/30">Mais popular</span>
           </div>
-          <p class="text-3xl font-extrabold mt-2 text-white">R$ 199<span class="text-sm text-gray-400">/mês</span></p>
-          <ul class="mt-4 space-y-2 text-sm text-gray-300">
+          <p class="text-3xl font-extrabold mt-2 text-white price" data-mensal="199" data-trimestral="539" data-anual="1890">R$ 199<span class="text-sm text-gray-400">/mês</span></p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-300 benefits">
             <li>• Treino + periodização</li>
             <li>• Check-in semanal e suporte</li>
+            <li data-extra="trimestral,anual" class="hidden">• Avaliação trimestral</li>
+            <li data-extra="anual" class="hidden">• 2 meses bônus</li>
           </ul>
-          <button data-open-form="Performance" class="btn magnet mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
+          <button data-open-form="Performance" class="btn mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold" data-i18n="cta_book">Agendar consulta</button>
         </div>
       </div>
 
-      <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px] tilt">
+      <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px] tilt" data-plan="Elite">
         <div class="tilt-inner flex flex-col h-full">
           <div class="flex items-center justify-between">
             <p class="text-white font-semibold">Elite</p>
             <span class="px-2 py-1 rounded-full bg-pink-400/20 text-pink-200 text-xs border border-pink-400/30">Resultados agressivos</span>
           </div>
-          <p class="text-3xl font-extrabold mt-2 text-white">R$ 349<span class="text-sm text-gray-400">/mês</span></p>
-          <ul class="mt-4 space-y-2 text-sm text-gray-300">
+          <p class="text-3xl font-extrabold mt-2 text-white price" data-mensal="349" data-trimestral="949" data-anual="3190">R$ 349<span class="text-sm text-gray-400">/mês</span></p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-300 benefits">
             <li>• Treino premium + ajustes</li>
             <li>• Periodização semanal avançada</li>
             <li>• Suporte quase diário</li>
+            <li data-extra="anual" class="hidden">• 3 meses bônus</li>
           </ul>
-          <button data-open-form="Elite" class="btn magnet mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Agendar consulta</button>
+          <button data-open-form="Elite" class="btn mt-auto rounded-xl px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold" data-i18n="cta_book">Agendar consulta</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Depoimentos -->
+  <!-- Prova social: carrossel -->
   <section class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
-    <div class="text-center mb-8">
-      <h2 class="title text-3xl md:text-5xl text-white">O que a galera fala</h2>
-      <p class="text-gray-300 mt-2">Gente real, resultado real.</p>
+    <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
+      <div class="flex items-center gap-3">
+        <div class="text-yellow-300 flex items-center">
+          <span class="text-2xl rating-star">★</span><span class="text-2xl rating-star">★</span><span class="text-2xl rating-star">★</span><span class="text-2xl rating-star">★</span><span class="text-2xl rating-star">★</span>
+        </div>
+        <p class="text-gray-300"><span class="font-semibold">5.0</span> <span data-i18n="rating">de média</span></p>
+      </div>
+      <div class="chip rounded-full px-3 py-1 text-xs text-cyan-200">+100 alunos</div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <div class="glass rounded-2xl p-5 tilt">
-        <div class="tilt-inner">
-          <div class="flex items-center gap-3 flex-shrink-0">
-            <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">🏋️</div>
-            <div>
-              <p class="text-white font-semibold">Bruno</p>
-              <p class="text-xs text-gray-400">6 meses</p>
-            </div>
+    <div class="glass rounded-3xl p-5">
+      <div class="overflow-hidden">
+        <div id="carouselTrack" class="carousel-track">
+          <div class="min-w-[280px] md:min-w-[360px] rounded-2xl p-5 bg-white/5 border border-white/10">
+            <p class="text-white font-semibold">Bruno</p>
+            <p class="text-xs text-gray-400">6 meses</p>
+            <p class="text-gray-300 text-sm mt-3">“3 meses e PR em agacho e supino. Direto, sem papo furado.”</p>
           </div>
-          <p class="text-gray-300 text-sm mt-3">“3 meses e PR em agacho e supino. Direto, sem papo furado.”</p>
+          <div class="min-w-[280px] md:min-w-[360px] rounded-2xl p-5 bg-white/5 border border-white/10">
+            <p class="text-white font-semibold">Larissa</p>
+            <p class="text-xs text-gray-400">4 meses</p>
+            <p class="text-gray-300 text-sm mt-3">“Treinos objetivos, técnica ajustada. Resultado veio.”</p>
+          </div>
+          <div class="min-w-[280px] md:min-w-[360px] rounded-2xl p-5 bg-white/5 border border-white/10">
+            <p class="text-white font-semibold">Diego</p>
+            <p class="text-xs text-gray-400">8 meses</p>
+            <p class="text-gray-300 text-sm mt-3">“Acompanhamento faz a diferença. Consistência virou hábito.”</p>
+          </div>
+          <div class="min-w-[280px] md:min-w-[360px] rounded-2xl p-5 bg-white/5 border border-white/10">
+            <p class="text-white font-semibold">Marina</p>
+            <p class="text-xs text-gray-400">5 meses</p>
+            <p class="text-gray-300 text-sm mt-3">“Perdi 7kg, ganhei disposição e confiança. Recomendo.”</p>
+          </div>
         </div>
       </div>
-      <div class="glass rounded-2xl p-5 tilt">
-        <div class="tilt-inner">
-          <div class="flex items-center gap-3 flex-shrink-0">
-            <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">💪</div>
-            <div>
-              <p class="text-white font-semibold">Larissa</p>
-              <p class="text-xs text-gray-400">4 meses</p>
-            </div>
-          </div>
-          <p class="text-gray-300 text-sm mt-3">“Treinos objetivos, técnica ajustada. Resultado veio.”</p>
+      <div class="mt-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <button id="carPrev" class="btn rounded-full w-9 h-9 grid place-items-center bg-white/5 border border-white/10 text-white">‹</button>
+          <button id="carNext" class="btn rounded-full w-9 h-9 grid place-items-center bg-white/5 border border-white/10 text-white">›</button>
+        </div>
+        <div class="text-xs text-gray-400"><span id="carIndex">1</span>/4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Onboarding rápido -->
+  <section class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
+    <div class="glass rounded-3xl p-6 md:p-8">
+      <h3 class="title text-2xl md:text-3xl text-white" data-i18n="on_title">Vamos te conhecer em 1 minuto</h3>
+      <p class="text-gray-300 mt-2" data-i18n="on_sub">Responda e te indico o melhor plano.</p>
+      <div class="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div>
+          <label class="block text-gray-300 mb-1" data-i18n="on_goal">Objetivo</label>
+          <select id="onGoal" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+            <option value="Hipertrofia" data-i18n="on_opt_gain">Hipertrofia</option>
+            <option value="Perda de gordura" data-i18n="on_opt_lose">Perda de gordura</option>
+            <option value="Performance" data-i18n="on_opt_perf">Performance</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-gray-300 mb-1" data-i18n="on_freq">Frequência semanal</label>
+          <select id="onFreq" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+            <option value="2x">2x</option><option value="3x">3x</option><option value="4x">4x</option><option value="5x+">5x+</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-gray-300 mb-1" data-i18n="on_time">Tempo por treino</label>
+          <select id="onTime" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+            <option value="30-40m">30-40m</option><option value="45-60m">45-60m</option><option value="60m+">60m+</option>
+          </select>
         </div>
       </div>
-      <div class="glass rounded-2xl p-5 tilt">
-        <div class="tilt-inner">
-          <div class="flex items-center gap-3 flex-shrink-0">
-            <div class="h-9 w-9 rounded-full bg-white/10 grid place-items-center">⚡</div>
-            <div>
-              <p class="text-white font-semibold">Diego</p>
-              <p class="text-xs text-gray-400">8 meses</p>
-            </div>
-          </div>
-          <p class="text-gray-300 text-sm mt-3">“Acompanhamento faz a diferença. Consistência virou hábito.”</p>
+      <div class="mt-4">
+        <button id="onSuggest" class="btn rounded-lg px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold" data-i18n="on_cta">Ver plano sugerido</button>
+        <span id="onResult" class="ml-3 text-cyan-200 font-semibold"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculadora IMC / TDEE -->
+  <section class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
+    <div class="glass rounded-3xl p-6 md:p-8">
+      <h3 class="title text-2xl md:text-3xl text-white" data-i18n="calc_title">Calculadora: IMC e Calorias</h3>
+      <p class="text-gray-300 mt-2" data-i18n="calc_sub">Estimativas para orientar seu ponto de partida.</p>
+      <div class="mt-5 grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+        <div>
+          <label class="block text-gray-300 mb-1" data-i18n="calc_weight">Peso (kg)</label>
+          <input id="cPeso" type="number" min="30" max="300" step="0.1" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40" placeholder="78.5">
+        </div>
+        <div>
+          <label class="block text-gray-300 mb-1" data-i18n="calc_height">Altura (cm)</label>
+          <input id="cAlt" type="number" min="120" max="230" step="1" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40" placeholder="178">
+        </div>
+        <div>
+          <label class="block text-gray-300 mb-1" data-i18n="calc_age">Idade</label>
+          <input id="cId" type="number" min="10" max="100" step="1" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40" placeholder="29">
+        </div>
+        <div>
+          <label class="block text-gray-300 mb-1" data-i18n="calc_activity">Atividade</label>
+          <select id="cAct" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+            <option value="1.2" data-i18n="act_1">Sedentário</option>
+            <option value="1.375" data-i18n="act_2">Leve</option>
+            <option value="1.55" data-i18n="act_3">Moderado</option>
+            <option value="1.725" data-i18n="act_4">Intenso</option>
+          </select>
+        </div>
+      </div>
+      <div class="mt-4">
+        <button id="calcGo" class="btn rounded-lg px-5 py-3 bg-white/5 border border-white/10 text-white hover:bg-white/10" data-i18n="calc_cta">Calcular</button>
+      </div>
+      <div id="calcOut" class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="rounded-xl p-4 bg-white/5 border border-white/10">
+          <p class="text-gray-300 text-sm" data-i18n="calc_imc">IMC</p>
+          <p id="vIMC" class="text-2xl font-bold text-white">—</p>
+        </div>
+        <div class="rounded-xl p-4 bg-white/5 border border-white/10">
+          <p class="text-gray-300 text-sm" data-i18n="calc_tdee">Calorias/dia (TDEE)</p>
+          <p id="vTDEE" class="text-2xl font-bold text-white">—</p>
+        </div>
+        <div class="rounded-xl p-4 bg-white/5 border border-white/10">
+          <p class="text-gray-300 text-sm" data-i18n="calc_hint">Sugestão</p>
+          <p id="vHint" class="text-white font-semibold">—</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA flutuantes -->
-  <div id="floatActions" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 transition-opacity duration-300 opacity-0 pointer-events-none">
-    <button id="floatCta" class="btn magnet rounded-full px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold shadow-lg active:scale-95">Agendar agora</button>
-    <a id="floatWhats" target="_blank" rel="noopener" class="btn rounded-full px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10 text-sm">WhatsApp</a>
-  </div>
+  <!-- Agenda rápida -->
+  <section class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
+    <div class="glass rounded-3xl p-6 md:p-8">
+      <h3 class="title text-2xl md:text-3xl text-white" data-i18n="sched_title">Agenda rápida</h3>
+      <p class="text-gray-300 mt-2" data-i18n="sched_sub">Selecione dias e turnos e me chame no WhatsApp.</p>
+      <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+        <div class="rounded-xl p-3 bg-white/5 border border-white/10">
+          <p class="text-gray-300 mb-2">Dias</p>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="inline-flex items-center gap-2"><input type="checkbox" value="Seg" class="accent-cyan-400">Seg</label>
+            <label class="inline-flex items-center gap-2"><input type="checkbox" value="Ter" class="accent-cyan-400">Ter</label>
+            <label class="inline-flex items-center gap-2"><input type="checkbox" value="Qua" class="accent-cyan-400">Qua</label>
+            <label class="inline-flex items-center gap-2"><input type="checkbox" value="Qui" class="accent-cyan-400">Qui</label>
+            <label class="inline-flex items-center gap-2"><input type="checkbox" value="Sex" class="accent-cyan-400">Sex</label>
+            <label class="inline-flex items-center gap-2"><input type="checkbox" value="Sáb" class="accent-cyan-400">Sáb</label>
+          </div>
+        </div>
+        <div class="rounded-xl p-3 bg-white/5 border border-white/10">
+          <p class="text-gray-300 mb-2">Turno</p>
+          <div class="grid grid-cols-1 gap-2">
+            <label class="inline-flex items-center gap-2"><input type="radio" name="turno" value="Manhã" class="accent-cyan-400">Manhã</label>
+            <label class="inline-flex items-center gap-2"><input type="radio" name="turno" value="Tarde" class="accent-cyan-400">Tarde</label>
+            <label class="inline-flex items-center gap-2"><input type="radio" name="turno" value="Noite" class="accent-cyan-400">Noite</label>
+          </div>
+        </div>
+        <div class="rounded-xl p-3 bg-white/5 border border-white/10 md:col-span-2">
+          <p class="text-gray-300 mb-2">Observações</p>
+          <input id="obsAgenda" class="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white" placeholder="Prefiro segunda e quarta à tarde...">
+        </div>
+      </div>
+      <div class="mt-4">
+        <button id="agendaGo" class="btn rounded-lg px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold">Enviar no WhatsApp</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conteúdo rico -->
+  <section class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="glass rounded-3xl p-6">
+        <h3 class="title text-2xl text-white">Erros comuns no treino</h3>
+        <ul class="mt-3 text-gray-300 space-y-2 text-sm">
+          <li>• Pular aquecimento e mobilidade</li>
+          <li>• Carga acima da técnica</li>
+          <li>• Volume sem progressão</li>
+          <li>• Falta de descanso</li>
+        </ul>
+        <button class="btn mt-4 rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10">Corrigir comigo</button>
+      </div>
+      <div class="glass rounded-3xl p-6">
+        <h3 class="title text-2xl text-white">Como evitar lesões</h3>
+        <ul class="mt-3 text-gray-300 space-y-2 text-sm">
+          <li>• Técnica antes de carga</li>
+          <li>• Progressão gradual</li>
+          <li>• Fortalecimento de base</li>
+          <li>• Sinais de fadiga</li>
+        </ul>
+        <button class="btn mt-4 rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10">Quero orientação</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pergunte direto -->
+  <section class="max-w-7xl mx-auto px-6 py-14 md:py-20 reveal">
+    <div class="glass rounded-3xl p-6 md:p-8">
+      <h3 class="title text-2xl md:text-3xl text-white">Pergunte direto</h3>
+      <p class="text-gray-300 mt-2">Clique e me mande no WhatsApp agora:</p>
+      <div class="mt-4 flex flex-col sm:flex-row gap-3">
+        <a class="btn rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold" data-msg="Quero hipertrofia, por onde começamos?">Quero hipertrofia</a>
+        <a class="btn rounded-lg px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-ink font-semibold" data-msg="Quero secar com saúde, me ajuda?">Quero secar</a>
+        <a class="btn rounded-lg px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-500 text-ink font-semibold" data-msg="Busco performance, qual o plano ideal?">Quero performance</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ com busca -->
+  <section id="faq" class="max-w-7xl mx-auto px-6 py-14 md:py-20">
+    <h2 class="title text-3xl md:text-5xl text-white text-center" data-i18n="faq_title">Dúvidas Frequentes</h2>
+    <div class="max-w-2xl mx-auto mt-6">
+      <input id="faqSearch" class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500" placeholder="Buscar dúvida...">
+    </div>
+    <div id="faqList" class="mt-8 space-y-4">
+      <details class="glass rounded-2xl p-5 group" data-q="Preciso de academia? treinar em casa casa academia">
+        <summary class="flex items-center justify-between cursor-pointer list-none">
+          <span class="text-white font-semibold">Preciso de academia?</span>
+          <span class="text-gray-400 group-open:rotate-180 transition">⌄</span>
+        </summary>
+        <p class="text-gray-300 mt-3 text-sm">Dá para treinar em casa com o que você tem. Na academia, ampliamos as opções.</p>
+      </details>
+      <details class="glass rounded-2xl p-5 group" data-q="Equipamentos específicos preciso halteres elástico kettlebell">
+        <summary class="flex items-center justify-between cursor-pointer list-none">
+          <span class="text-white font-semibold">Preciso de equipamentos específicos?</span>
+          <span class="text-gray-400 group-open:rotate-180 transition">⌄</span>
+        </summary>
+        <p class="text-gray-300 mt-3 text-sm">Não. Adaptamos ao seu contexto: academia, condomínio ou casa.</p>
+      </details>
+      <details class="glass rounded-2xl p-5 group" data-q="Resultado quanto tempo emagrecer ganhar massa semanas meses">
+        <summary class="flex items-center justify-between cursor-pointer list-none">
+          <span class="text-white font-semibold">Quanto tempo para ver resultado?</span>
+          <span class="text-gray-400 group-open:rotate-180 transition">⌄</span>
+        </summary>
+        <p class="text-gray-300 mt-3 text-sm">Depende do objetivo e consistência. Semanas já mostram evolução.</p>
+      </details>
+      <details class="glass rounded-2xl p-5 group" data-q="Nutrição dieta preciso acompanhamento alimentar">
+        <summary class="flex items-center justify-between cursor-pointer list-none">
+          <span class="text-white font-semibold">Você inclui dieta?</span>
+          <span class="text-gray-400 group-open:rotate-180 transition">⌄</span>
+        </summary>
+        <p class="text-gray-300 mt-3 text-sm">Indico linhas gerais e, se necessário, um nutricionista parceiro.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Rodapé com selos -->
+  <footer class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-10">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <span class="rounded-full px-3 py-1 bg-white/5 border border-white/10 text-xs text-gray-300">Resposta em 24h</span>
+          <span class="rounded-full px-3 py-1 bg-white/5 border border-white/10 text-xs text-gray-300">Planos flexíveis</span>
+          <span class="rounded-full px-3 py-1 bg-white/5 border border-white/10 text-xs text-gray-300">Suporte individual</span>
+        </div>
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <button id="btnFooterCta" class="btn rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10" data-i18n="cta_start">Começar agora</button>
+          <a id="whatsLink" href="#" class="btn rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold">WhatsApp</a>
+        </div>
+      </div>
+      <p class="text-gray-400 text-sm mt-6">© <span id="year"></span> <span data-i18n="brand">Vinícius Azevedo</span>. <span data-i18n="rights">Todos os direitos reservados.</span></p>
+    </div>
+  </footer>
 
   <!-- Modal de Contato (DEMO) -->
   <div id="contatoModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm items-center justify-center p-6">
     <div class="glass rounded-3xl max-w-2xl w-full p-6 relative">
       <button id="closeContato" class="absolute top-3 right-3 text-gray-300 hover:text-white">✕</button>
-      <h3 class="title text-2xl text-white">Agendar consulta</h3>
-      <p class="text-gray-300 mt-2">Preencha seus dados e entrarei em contato para combinarmos o horário.</p>
+      <h3 class="title text-2xl text-white" data-i18n="cta_book">Agendar consulta</h3>
+      <p class="text-gray-300 mt-2" data-i18n="form_sub">Preencha e te retorno em até 24h.</p>
 
       <form id="leadForm" class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="col-span-1">
-          <label class="block text-sm text-gray-300 mb-1">Seu nome</label>
-          <input required type="text" name="nome" placeholder="Ex: Carlos" class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-cyan-400"/>
+          <label class="block text-sm text-gray-300 mb-1" data-i18n="form_name">Seu nome</label>
+          <input required type="text" name="nome" placeholder="Ex: Carlos" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-cyan-400/40"/>
         </div>
         <div class="col-span-1">
-          <label class="block text-sm text-gray-300 mb-1">Seu e-mail</label>
-          <input required type="email" name="email" placeholder="voce@email.com" class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-cyan-400"/>
+          <label class="block text-sm text-gray-300 mb-1" data-i18n="form_email">Seu e-mail</label>
+          <input required type="email" name="email" placeholder="voce@email.com" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-cyan-400/40"/>
         </div>
         <div class="col-span-1">
-          <label class="block text-sm text-gray-300 mb-1">Objetivo</label>
-          <select name="objetivo" class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white outline-none focus:ring-2 focus:ring-cyan-400">
+          <label class="block text-sm text-gray-300 mb-1" data-i18n="form_goal">Objetivo</label>
+          <select name="objetivo" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
             <option>Hipertrofia</option>
             <option>Perda de gordura</option>
             <option>Performance</option>
             <option>Saúde/Qualidade de vida</option>
           </select>
         </div>
+        <div class="col-span-1">
+          <label class="block text-sm text-gray-300 mb-1">Peso (kg)</label>
+          <input required type="number" name="peso" min="30" max="300" step="0.1" placeholder="78.5" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-600 outline-none focus:ring-2 focus:ring-cyan-400/40"/>
+        </div>
+        <div class="col-span-1">
+          <label class="block text-sm text-gray-300 mb-1">Idade (anos)</label>
+          <input required type="number" name="idade" min="10" max="100" step="1" placeholder="29" class="w-full rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 px-4 py-3 text-white placeholder:text-gray-600 outline-none focus:ring-2 focus:ring-cyan-400/40"/>
+        </div>
+        <div class="col-span-1">
+          <label class="block text-sm text-gray-300 mb-1">Altura (cm)</label>
+          <input required type="number" name="altura" min="120" max="230" step="1" placeholder="178" class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-600 outline-none focus:ring-2 focus:ring-cyan-400"/>
+        </div>
         <div class="md:col-span-3">
-          <label class="block text-sm text-gray-300 mb-1">Mensagem (opcional)</label>
+          <label class="block text-sm text-gray-300 mb-1" data-i18n="form_msg">Mensagem (opcional)</label>
           <textarea name="msg" rows="3" placeholder="Me conte um pouco do seu histórico..." class="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-gray-500 outline-none focus:ring-2 focus:ring-cyan-400"></textarea>
         </div>
         <div class="md:col-span-3 flex items-center justify-between gap-4">
           <div class="flex items-center gap-3 text-sm text-gray-300">
             <span class="h-2 w-2 rounded-full bg-emerald-400 inline-block"></span>
-            Retorno em até 24h úteis
+            <span data-i18n="form_sla">Retorno em até 24h úteis</span>
           </div>
-          <button class="btn rounded-xl px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold" type="submit">Entrar em contato</button>
+          <button class="btn rounded-xl px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold" type="submit" data-i18n="form_send">Entrar em contato</button>
         </div>
-        <p class="text-xs text-gray-400 md:col-span-3 mt-2">Aviso: este formulário é uma demonstração e não envia e-mails automaticamente.</p>
+        <p class="text-xs text-gray-400 md:col-span-3 mt-2" data-i18n="form_demo">Aviso: demonstração — abre WhatsApp.</p>
       </form>
     </div>
   </div>
 
-  <!-- FAQ -->
-  <section id="faq" class="max-w-4xl mx-auto px-6 py-14 md:py-20">
-    <h2 class="title text-3xl md:text-5xl text-white text-center">Dúvidas Frequentes</h2>
-    <div class="mt-8 space-y-4">
-      <details class="glass rounded-2xl p-5 group">
-        <summary class="flex items-center justify-between cursor-pointer list-none">
-          <span class="text-white font-semibold">Preciso de academia?</span>
-          <span class="text-gray-400 group-open:rotate-180 transition">⌄</span>
-        </summary>
-        <p class="text-gray-300 mt-3 text-sm">Ajudo com treinos na academia ou em casa com o que você tem. O importante é começar.</p>
-      </details>
-      <details class="glass rounded-2xl p-5 group">
-        <summary class="flex items-center justify-between cursor-pointer list-none">
-          <span class="text-white font-semibold">Preciso de equipamentos específicos?</span>
-          <span class="text-gray-400 group-open:rotate-180 transition">⌄</span>
-        </summary>
-        <p class="text-gray-300 mt-3 text-sm">Não. Adaptamos com o que você tem: academia, condomínio ou casa.</p>
-      </details>
-      <details class="glass rounded-2xl p-5 group">
-        <summary class="flex items-center justify-between cursor-pointer list-none">
-          <span class="text-white font-semibold">Quanto tempo para ver resultado?</span>
-          <span class="text-gray-400 group-open:rotate-180 transition">⌄</span>
-        </summary>
-        <p class="text-gray-300 mt-3 text-sm">Depende do objetivo e consistência. Nas primeiras semanas já dá para notar evolução.</p>
-      </details>
-    </div>
-  </section>
-
-  <!-- Rodapé -->
-  <footer class="border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-gray-400 text-sm">© <span id="year"></span> Vinícius Azevedo. Todos os direitos reservados.</p>
-      <div class="flex items-center gap-3 flex-shrink-0">
-        <button id="btnFooterCta" class="btn magnet rounded-lg px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10">Começar agora</button>
-        <a id="whatsLink" href="#" class="btn rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold">Falar no WhatsApp</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Video Modal -->
-  <div id="videoModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm items-center justify-center p-6">
-    <div class="glass rounded-3xl max-w-2xl w-full p-6 relative">
-      <button id="closeVideo" class="absolute top-3 right-3 text-gray-300 hover:text-white">✕</button>
-      <h3 class="title text-2xl text-white">Como funciona</h3>
-      <p class="text-gray-300 mt-2">Roteiro em 3 passos:</p>
-      <ol class="text-gray-200 mt-3 list-decimal list-inside space-y-2">
-        <li>Você preenche o interesse.</li>
-        <li>Alinhamos objetivo, rotina e histórico.</li>
-        <li>Entrego seu plano e começamos o acompanhamento.</li>
-      </ol>
-      <div class="mt-6 flex justify-end">
-        <button id="videoToForm" class="btn magnet rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold">Quero começar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast -->
-  <div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 drop-shadow-xl">
-    <div class="rounded-full px-4 py-2 bg-emerald-500 text-ink font-semibold shadow-lg">Recebido! Já já eu te chamo.</div>
+  <!-- Float CTAs -->
+  <div id="floatActions" class="fixed bottom-5 right-5 z-40 flex flex-col gap-3 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <button id="floatCta" class="btn rounded-full px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold shadow-lg active:scale-95" data-i18n="cta_book">Agendar agora</button>
+    <a id="floatWhats" target="_blank" rel="noopener" class="btn rounded-full px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10 text-sm">WhatsApp</a>
   </div>
 
   <script>
-    // Atalhos
-    const $ = (s, p=document) => p.querySelector(s);
-    const $$ = (s, p=document) => Array.from(p.querySelectorAll(s));
+    // Helpers
+    const $ = (s,p=document)=>p.querySelector(s);
+    const $$ = (s,p=document)=>Array.from(p.querySelectorAll(s));
+
+    // I18N
+    const dict = {
+      pt: {
+        brand: 'Vinícius Azevedo', role:'Personal Trainer',
+        nav_benefits:'Benefícios', nav_plans:'Planos', nav_about:'Sobre mim', nav_faq:'FAQ', nav_extras:'Extras',
+        a11y_text:'Texto A+', a11y_motion:'Menos animações',
+        cta_book:'Agendar consulta', cta_how:'Ver como funciona ▶', cta_start:'Começar agora',
+        hero_chip:'Resultados reais, sem mimimi', hero_sub:'Treinos personalizados, orientação de treino e acompanhamento de verdade. Difícil? É. Impossível? Nunca.',
+        hero_p1:'Acompanhamento semanal', hero_p2:'Treino sob medida', hero_p3:'100% focado no seu objetivo',
+        benefits_title:'Simples, Direto e que Funciona', benefits_sub:'Sem frescura: treino inteligente, execução correta e consistência.',
+        plans_title:'Planos com o Vinícius Azevedo', plans_sub:'Escolha o período e veja os benefícios.',
+        bill_monthly:'Mensal', bill_quarterly:'Trimestral', bill_yearly:'Anual',
+        value_title:'O que você recebe', value_sub:'Um acompanhamento completo para acelerar seus resultados.',
+        rating:'de média',
+        on_title:'Vamos te conhecer em 1 minuto', on_sub:'Responda e te indico o melhor plano.', on_goal:'Objetivo', on_freq:'Frequência semanal', on_time:'Tempo por treino',
+        on_opt_gain:'Hipertrofia', on_opt_lose:'Perda de gordura', on_opt_perf:'Performance', on_cta:'Ver plano sugerido',
+        calc_title:'Calculadora: IMC e Calorias', calc_sub:'Estimativas para orientar seu ponto de partida.',
+        calc_weight:'Peso (kg)', calc_height:'Altura (cm)', calc_age:'Idade', calc_activity:'Atividade',
+        act_1:'Sedentário', act_2:'Leve', act_3:'Moderado', act_4:'Intenso',
+        calc_cta:'Calcular', calc_imc:'IMC', calc_tdee:'Calorias/dia (TDEE)', calc_hint:'Sugestão',
+        faq_title:'Dúvidas Frequentes',
+        form_sub:'Preencha e te retorno em até 24h.', form_name:'Seu nome', form_email:'Seu e-mail', form_goal:'Objetivo', form_msg:'Mensagem (opcional)', form_sla:'Retorno em até 24h úteis', form_send:'Entrar em contato', form_demo:'Aviso: demonstração — abre WhatsApp.',
+        rights:'Todos os direitos reservados.'
+      },
+      en: {
+        brand:'Vinícius Azevedo', role:'Personal Trainer',
+        nav_benefits:'Benefits', nav_plans:'Plans', nav_about:'About', nav_faq:'FAQ', nav_extras:'Extras',
+        a11y_text:'Bigger text', a11y_motion:'Less motion',
+        cta_book:'Book a session', cta_how:'How it works ▶', cta_start:'Start now',
+        hero_chip:'Real results, no fluff', hero_sub:'Personalized training and real follow-up. Hard? Yes. Impossible? Never.',
+        hero_p1:'Weekly check-ins', hero_p2:'Tailored training', hero_p3:'100% goal-focused',
+        benefits_title:'Simple, Straightforward, Effective', benefits_sub:'Smart training, proper execution, consistency.',
+        plans_title:'Plans with Vinícius Azevedo', plans_sub:'Choose billing and see benefits.',
+        bill_monthly:'Monthly', bill_quarterly:'Quarterly', bill_yearly:'Yearly',
+        value_title:'What you get', value_sub:'A complete follow-up to accelerate your results.',
+        rating:'average',
+        on_title:'Let’s know you in 1 minute', on_sub:'Answer and I’ll suggest the best plan.', on_goal:'Goal', on_freq:'Weekly frequency', on_time:'Time per session',
+        on_opt_gain:'Hypertrophy', on_opt_lose:'Fat loss', on_opt_perf:'Performance', on_cta:'See suggested plan',
+        calc_title:'Calculator: BMI & Calories', calc_sub:'Estimates to guide your start.',
+        calc_weight:'Weight (kg)', calc_height:'Height (cm)', calc_age:'Age', calc_activity:'Activity',
+        act_1:'Sedentary', act_2:'Light', act_3:'Moderate', act_4:'Intense',
+        calc_cta:'Calculate', calc_imc:'BMI', calc_tdee:'Calories/day (TDEE)', calc_hint:'Tip',
+        faq_title:'Frequently Asked Questions',
+        form_sub:'Fill in and I’ll reply within 24h.', form_name:'Your name', form_email:'Your e-mail', form_goal:'Goal', form_msg:'Message (optional)', form_sla:'Reply within 24h', form_send:'Send', form_demo:'Note: demo — opens WhatsApp.',
+        rights:'All rights reserved.'
+      }
+    };
+    function applyLang(lang){
+      document.documentElement.setAttribute('lang', lang==='en'?'en':'pt-BR');
+      document.body.setAttribute('data-lang', lang);
+      $$('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if (dict[lang][key]) el.textContent = dict[lang][key];
+      });
+    }
+    $('#langSel').addEventListener('change', (e)=> applyLang(e.target.value));
+    applyLang('pt');
 
     // Ano
     $('#year').textContent = new Date().getFullYear();
 
-    // Revela ao rolar
+    // Reveal
     const io = new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} }),{threshold:.15});
     $$('.reveal').forEach(el=> io.observe(el));
 
-    // Parallax blobs
-    const blobA = $('#blobA'), blobB = $('#blobB');
-    let lastScrollY = 0;
-    const onScrollParallax = () => {
-      const s = window.scrollY;
-      const d = s - lastScrollY; lastScrollY = s;
-      if (blobA) blobA.style.transform = `translateY(${s * .06}px)`;
-      if (blobB) blobB.style.transform = `translateY(${-s * .05}px)`;
-    };
+    // Typewriter
+    const lines = ['Resultados reais, disciplina de atleta.','Treino sob medida, zero achismo.','Constância vence motivação. Bora?'];
+    const typeTarget = $('#typeLine'); let li=0,ci=0,del=false;
+    function typeLoop(){ const cur=lines[li]; typeTarget.textContent = cur.slice(0,ci); if(!del){ ci++; if(ci>cur.length+8) del=true; } else { ci--; if(ci===0){ del=false; li=(li+1)%lines.length; } } setTimeout(typeLoop, del?42:64); }
+    if(typeTarget) typeLoop();
 
-    // Progress bar, header state, float CTAs
-    const header = $('#siteHeader'), progress = $('#progressBar'), backToTop = $('#backToTop');
-    const float = $('#floatActions');
-    const onScrollUI = () => {
+    // Progress bar, float CTAs, ScrollSpy
+    const header = $('#siteHeader'), progress = $('#progressBar'), float = $('#floatActions');
+    const spyLinks = $$('.navlink');
+    const sections = ['extras','beneficios','planos','sobre-mim','faq'].map(id=>$('#'+id));
+    function onScrollUI(){
       const h = document.documentElement;
       const scrolled = h.scrollTop || document.body.scrollTop;
       const height = h.scrollHeight - h.clientHeight;
-      const pct = Math.min(100, Math.max(0, (scrolled/height)*100));
+      const pct = Math.min(100, Math.max(0,(scrolled/height)*100));
       progress.style.width = pct + '%';
-      if (scrolled > 80) { header.classList.add('scrolled'); backToTop.classList.remove('hidden'); }
-      else { header.classList.remove('scrolled'); backToTop.classList.add('hidden'); }
-      if (pct > 25) float.classList.remove('opacity-0','pointer-events-none');
+      if (pct > 20) float.classList.remove('opacity-0','pointer-events-none');
       else float.classList.add('opacity-0','pointer-events-none');
-    };
-
-    window.addEventListener('scroll', ()=>{ onScrollUI(); onScrollParallax(); }, {passive:true});
-    backToTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
-
-    // Typewriter
-    const lines = ['Resultados reais, disciplina de atleta.','Treino sob medida, zero achismo.','Constância vence motivação. Bora?'];
-    const typeTarget = $('#typeLine');
-    let li=0, ci=0, del=false;
-    function typeLoop(){
-      const cur=lines[li];
-      typeTarget.textContent = cur.slice(0, ci);
-      if(!del){ ci++; if(ci>cur.length+8) del=true; }
-      else { ci--; if(ci===0){ del=false; li=(li+1)%lines.length; } }
-      setTimeout(typeLoop, del?40:60);
+      let activeIndex = -1;
+      sections.forEach((sec,i)=>{
+        if(!sec) return;
+        const r = sec.getBoundingClientRect();
+        if (r.top <= window.innerHeight*0.35 && r.bottom >= window.innerHeight*0.35) activeIndex = i;
+      });
+      spyLinks.forEach((a,i)=> a.classList.toggle('active', i===activeIndex));
     }
-    if(typeTarget) typeLoop();
+    window.addEventListener('scroll', onScrollUI, {passive:true});
 
-    // Modais
+    // Parallax blobs
+    const blobA = $('#blobA'), blobB = $('#blobB');
+    window.addEventListener('scroll', ()=>{
+      const s = window.scrollY;
+      if (blobA) blobA.style.transform = `translateY(${s*.05}px)`;
+      if (blobB) blobB.style.transform = `translateY(${-s*.04}px)`;
+    }, {passive:true});
+
+    // Glare follow
+    const media = $('#heroCard .media'), glare = $('#heroCard .media .glare');
+    media?.addEventListener('mousemove', (e)=>{
+      const r = media.getBoundingClientRect();
+      const x = ((e.clientX - r.left)/r.width*100).toFixed(2)+'%';
+      const y = ((e.clientY - r.top)/r.height*100).toFixed(2)+'%';
+      glare?.style.setProperty('--x', x); glare?.style.setProperty('--y', y);
+    });
+
+    // Tilt attach
+    function attachTilt(el){
+      if(!el) return; let rAF=null;
+      function move(e){
+        const rect = el.getBoundingClientRect();
+        const x = (e.clientX-rect.left)/rect.width-.5, y=(e.clientY-rect.top)/rect.height-.5;
+        const rx=(y*-6).toFixed(2), ry=(x*6).toFixed(2);
+        if(rAF) cancelAnimationFrame(rAF);
+        rAF = requestAnimationFrame(()=> el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`);
+      }
+      function leave(){ el.style.transform='perspective(800px) rotateX(0deg) rotateY(0deg)'; }
+      el.addEventListener('mousemove', move); el.addEventListener('mouseleave', leave);
+    }
+    $$('.tilt').forEach(attachTilt);
+
+    // WhatsApp base
+    const whats = $('#whatsLink');
+    const defaultMsg = encodeURIComponent('Fala! Quero começar meus treinos no estilo maromba.');
+    whats.setAttribute('href', `https://wa.me/558399095400?text=${defaultMsg}`);
+    whats.setAttribute('target','_blank'); whats.setAttribute('rel','noopener');
+    $('#floatWhats').href = whats.href;
+
+    // Modal contato
     const contatoModal = $('#contatoModal');
     const openContato = ()=>{ contatoModal.classList.remove('hidden'); contatoModal.classList.add('flex'); };
     const closeContato = ()=>{ contatoModal.classList.add('hidden'); contatoModal.classList.remove('flex'); };
@@ -595,22 +881,155 @@
     $('#closeContato').addEventListener('click', closeContato);
     contatoModal.addEventListener('click', (e)=>{ if(e.target===contatoModal) closeContato(); });
 
-    const videoModal = $('#videoModal');
-    const openVideoModal = ()=>{ videoModal.classList.remove('hidden'); videoModal.classList.add('flex'); };
-    const closeVideoModal = ()=>{ videoModal.classList.add('hidden'); videoModal.classList.remove('flex'); };
-    $('#btnHeroVideo').addEventListener('click', openVideoModal);
-    $('#closeVideo').addEventListener('click', closeVideoModal);
-    $('#videoToForm').addEventListener('click', ()=>{ closeVideoModal(); openContato(); });
-    videoModal.addEventListener('click', (e)=>{ if(e.target===videoModal) closeVideoModal(); });
+    // Vídeo (leve)
+    $('#btnHeroVideo').addEventListener('click', ()=>{
+      alert('Roteiro:\n1) Você preenche o interesse\n2) Alinhamos objetivo e rotina\n3) Entrego seu plano e começamos');
+    });
 
-    // WhatsApp
-    const whats = $('#whatsLink');
-    const defaultMsg = encodeURIComponent('Fala! Quero começar meus treinos no estilo maromba.');
-    whats.setAttribute('href', `https://wa.me/558399095400?text=${defaultMsg}`);
-    whats.setAttribute('target', '_blank'); whats.setAttribute('rel', 'noopener');
-    $('#floatWhats').href = whats.href;
+    // Form DEMO -> WhatsApp
+    $('#leadForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const texto = [
+        'Olá, Vinícius! Quero agendar uma consulta.',
+        `Nome: ${data.nome || '—'}`,
+        `E-mail: ${data.email || '—'}`,
+        `Objetivo: ${data.objetivo || '—'}`,
+        data.peso ? `Peso: ${data.peso}kg` : null,
+        data.altura ? `Altura: ${data.altura}cm` : null,
+        data.idade ? `Idade: ${data.idade} anos` : null,
+        data.msg ? `Mensagem: ${data.msg}` : null
+      ].filter(Boolean).join('\n');
+      const url = `https://wa.me/558399095400?text=${encodeURIComponent(texto)}`;
+      window.open(url,'_blank');
+      try{
+        const list = JSON.parse(localStorage.getItem('leads_maromba') || '[]');
+        list.push({...data, ts:new Date().toISOString()});
+        localStorage.setItem('leads_maromba', JSON.stringify(list));
+      }catch{}
+      e.target.reset(); closeContato();
+    });
 
-    // CTA plano -> form com sugestão de objetivo
+    // Float CTA
+    $('#floatCta').addEventListener('click', openContato);
+
+    // Drawer mobile
+    const drawer = $('#drawer'), drawerPanel = $('#drawer aside');
+    function openDrawer(){
+      drawer.classList.remove('hidden');
+      requestAnimationFrame(()=> drawerPanel.classList.add('drawer-show'));
+    }
+    function closeDrawer(){
+      drawerPanel.classList.remove('drawer-show');
+      setTimeout(()=> drawer.classList.add('hidden'), 250);
+    }
+    $('#hamburger').addEventListener('click', openDrawer);
+    $('#drawerClose').addEventListener('click', closeDrawer);
+    $('#drawerBackdrop').addEventListener('click', closeDrawer);
+    $('#drawerCta').addEventListener('click', ()=>{ closeDrawer(); openContato(); });
+
+    // Anchor smooth
+    $$('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el){
+          e.preventDefault();
+          closeDrawer();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      })
+    });
+
+    // Drawer Whats link same as footer
+    $('#drawerWhats').href = whats.href;
+
+    // Plan comparator
+    function setBilling(mode){
+      $$('.planTab').forEach(t=> t.classList.toggle('bg-cyan-500/30', t.dataset.bill===mode));
+      $$('#planCards .price').forEach(p=>{
+        const val = p.dataset[mode];
+        if (!val) return;
+        const label = mode==='mensal' ? '/mês' : (mode==='trimestral' ? '/tri' : '/ano');
+        p.innerHTML = `R$ ${Number(val).toLocaleString('pt-BR')}<span class="text-sm text-gray-400">${label}</span>`;
+      });
+      $$('#planCards .benefits li[data-extra]').forEach(li=>{
+        const list = li.dataset.extra.split(',');
+        li.classList.toggle('hidden', !list.includes(mode));
+      });
+    }
+    setBilling('mensal');
+    $$('.planTab').forEach(btn=> btn.addEventListener('click', ()=> setBilling(btn.dataset.bill)));
+
+    // Carrossel
+    const track = $('#carouselTrack'); const slides = $$('#carouselTrack > div'); let idx=0;
+    function updateCar(){ const w = slides[0].getBoundingClientRect().width + 16; track.style.transform = `translateX(${-idx*w}px)`; $('#carIndex').textContent = (idx+1); }
+    $('#carPrev').addEventListener('click', ()=>{ idx = (idx-1+slides.length)%slides.length; updateCar(); });
+    $('#carNext').addEventListener('click', ()=>{ idx = (idx+1)%slides.length; updateCar(); });
+    updateCar();
+
+    // Onboarding sugerir plano
+    $('#onSuggest').addEventListener('click', ()=>{
+      const goal = $('#onGoal').value, freq = $('#onFreq').value, time = $('#onTime').value;
+      let plano = 'Essencial';
+      if (goal==='Performance' || freq==='5x+' || time==='60m+') plano = 'Elite';
+      else if (goal==='Hipertrofia' || freq==='4x') plano = 'Performance';
+      $('#onResult').textContent = `Plano sugerido: ${plano}`;
+      // realce
+      $$('#planCards > div').forEach(c=> c.style.outline = c.dataset.plan===plano ? '2px solid rgba(34,211,238,.6)' : 'none');
+      // rolar
+      $('#planos').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    // Calculadora
+    function calc(){ const kg=+$('#cPeso').value, cm=+$('#cAlt').value, idade=+$('#cId').value, act=+$('#cAct').value;
+      if(!(kg>0 && cm>0 && idade>0)) return;
+      const m = cm/100; const imc = kg/(m*m); const bmr = 10*kg + 6.25*cm - 5*idade + 5; // Mifflin (masc. ref)
+      const tdee = bmr*act;
+      $('#vIMC').textContent = imc.toFixed(1);
+      $('#vTDEE').textContent = Math.round(tdee).toLocaleString('pt-BR');
+      let hint = 'Manter calorias.';
+      if (imc>=25) hint = 'Déficit leve (−10%).';
+      if (imc<18.5) hint = 'Superávit leve (+10%).';
+      $('#vHint').textContent = hint + ' Melhor combinação com Performance.';
+    }
+    $('#calcGo').addEventListener('click', calc);
+
+    // Agenda rápida -> WhatsApp
+    $('#agendaGo').addEventListener('click', ()=>{
+      const dias = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(i=>i.value);
+      const turno = document.querySelector('input[name="turno"]:checked')?.value || '—';
+      const obs = $('#obsAgenda').value?.trim();
+      const msg = [
+        'Disponibilidade para treinar:',
+        `Dias: ${dias.join(', ') || '—'}`,
+        `Turno: ${turno}`,
+        obs? `Obs: ${obs}` : null
+      ].filter(Boolean).join('\n');
+      const url = `https://wa.me/558399095400?text=${encodeURIComponent(msg)}`;
+      window.open(url,'_blank');
+    });
+
+    // Pergunte direto -> WhatsApp
+    $$('section a[data-msg]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const m = a.dataset.msg;
+        const url = `https://wa.me/558399095400?text=${encodeURIComponent(m)}`;
+        window.open(url,'_blank');
+      });
+    });
+
+    // FAQ busca
+    $('#faqSearch').addEventListener('input', (e)=>{
+      const q = e.target.value.toLowerCase().trim();
+      $$('#faqList details').forEach(d=>{
+        const hay = d.dataset.q.toLowerCase();
+        d.style.display = hay.includes(q) ? '' : 'none';
+      });
+    });
+
+    // Plan buttons open modal + set objetivo
     $$('#planos button[data-open-form]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const plan = btn.getAttribute('data-open-form');
@@ -623,121 +1042,24 @@
       });
     });
 
-    // Form DEMO -> abre WhatsApp
-    $('#leadForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(e.target).entries());
-      const nome = data.nome?.trim() || '—';
-      const email = data.email?.trim() || '—';
-      const objetivo = data.objetivo || '—';
-      const msg = data.msg?.trim();
-      const texto = ['Olá, Vinícius! Quero agendar uma consulta.',`Nome: ${nome}`,`E-mail: ${email}`,`Objetivo: ${objetivo}`, msg?`Mensagem: ${msg}`:null].filter(Boolean).join('\n');
-      const url = `https://wa.me/558399095400?text=${encodeURIComponent(texto)}`;
-      window.open(url, '_blank');
-      try {
-        const list = JSON.parse(localStorage.getItem('leads_maromba') || '[]');
-        list.push({...data, ts:new Date().toISOString()});
-        localStorage.setItem('leads_maromba', JSON.stringify(list));
-      } catch {}
-      const t = $('#toast'); t.classList.remove('hidden'); setTimeout(()=> t.classList.add('hidden'), 2200);
-      e.target.reset(); closeContato();
-      confettiAt(e.submitter); // festa!
+    // Acessibilidade
+    let big=false, lowMotion=false;
+    $('#toggleFont').addEventListener('click', ()=>{
+      big = !big;
+      document.documentElement.style.fontSize = big ? '18px' : '';
     });
-
-    // Confetti simples
-    function confettiAt(el){
-      if(!el) return;
-      const rect = el.getBoundingClientRect();
-      for(let i=0;i<18;i++){
-        const s = document.createElement('span');
-        s.style.position='fixed';
-        s.style.left = (rect.left+rect.width/2)+'px';
-        s.style.top = (rect.top)+'px';
-        s.style.width=s.style.height= (6+Math.random()*6)+'px';
-        s.style.background = ['#22d3ee','#22c55e','#fb7185','#fde047'][Math.floor(Math.random()*4)];
-        s.style.borderRadius='2px';
-        s.style.zIndex=9999;
-        s.style.pointerEvents='none';
-        s.style.transform=`translate(0,0) rotate(${Math.random()*360}deg)`;
-        document.body.appendChild(s);
-        const dx = (Math.random()*2-1)*140, dy = 120+Math.random()*160, rot = Math.random()*720;
-        s.animate([{transform:'translate(0,0) rotate(0deg)', opacity:1},{transform:`translate(${dx}px, ${dy}px) rotate(${rot}deg)`, opacity:0}],{duration:800+Math.random()*600, easing:'cubic-bezier(.2,.7,.2,1)', fill:'forwards'});
-        setTimeout(()=> s.remove(), 1600);
+    $('#toggleMotion').addEventListener('click', ()=>{
+      lowMotion = !lowMotion;
+      document.body.classList.toggle('reduce-motion', lowMotion);
+      const styleId = 'reduceMotionStyle';
+      if (lowMotion && !$('#'+styleId)){
+        const s = document.createElement('style'); s.id=styleId;
+        s.textContent = `*{animation-duration:.001s !important; animation-iteration-count:1 !important; transition:none !important}`;
+        document.head.appendChild(s);
+      } else if (!lowMotion && $('#'+styleId)){
+        $('#'+styleId).remove();
       }
-    }
-
-    // Tilt 3D leve
-    function attachTilt(el){
-      if(!el) return;
-      let rAF=null;
-      function move(e){
-        const rect = el.getBoundingClientRect();
-        const x = (e.clientX - rect.left)/rect.width - .5;
-        const y = (e.clientY - rect.top)/rect.height - .5;
-        const rx = (y * -6).toFixed(2), ry = (x * 6).toFixed(2);
-        if(rAF) cancelAnimationFrame(rAF);
-        rAF = requestAnimationFrame(()=> el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`);
-      }
-      function leave(){ el.style.transform='perspective(800px) rotateX(0deg) rotateY(0deg)'; }
-      el.addEventListener('mousemove', move);
-      el.addEventListener('mouseleave', leave);
-    }
-    $$('.tilt').forEach(attachTilt);
-
-    // Magnet buttons (atração leve)
-    function attachMagnet(btn){
-      if(!btn) return;
-      const strength = 18;
-      let inside=false;
-      btn.addEventListener('mousemove', (e)=>{
-        const r = btn.getBoundingClientRect();
-        const x = e.clientX - (r.left + r.width/2);
-        const y = e.clientY - (r.top + r.height/2);
-        btn.style.transform = `translate(${x/strength}px, ${y/strength}px)`;
-        inside=true;
-      });
-      ['mouseleave','blur'].forEach(ev=> btn.addEventListener(ev, ()=>{ if(!inside) return; btn.style.transform='translate(0,0)'; inside=false; }));
-    }
-    $$('.magnet').forEach(attachMagnet);
-
-    // Glare que segue o mouse na mídia
-    const media = $('#heroCard .media'), glare = $('#heroCard .media .glare');
-    media?.addEventListener('mousemove', (e)=>{
-      const r = media.getBoundingClientRect();
-      const x = ((e.clientX - r.left)/r.width*100).toFixed(2)+'%';
-      const y = ((e.clientY - r.top)/r.height*100).toFixed(2)+'%';
-      glare?.style.setProperty('--x', x);
-      glare?.style.setProperty('--y', y);
     });
-
-    // Dica some ao rolar
-    const hint = $('#readHint');
-    window.addEventListener('scroll', ()=>{ if(window.scrollY>120) hint?.classList.add('hidden'); }, {passive:true});
-
-    // Contadores
-    const counters = $$('.counter');
-    const ioCount = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = +el.getAttribute('data-target');
-        let cur = 0;
-        const step = Math.ceil(target/60);
-        const tick = ()=> {
-          cur += step; if(cur>target) cur=target;
-          el.textContent = cur.toLocaleString('pt-BR');
-          if(cur<target) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-        ioCount.unobserve(el);
-      });
-    },{threshold:.6});
-    counters.forEach(c=> ioCount.observe(c));
-
-    // Float actions -> abrir contato
-    $('#floatCta').addEventListener('click', openContato);
-
-    // Ações do vídeo->form já conectadas acima
   </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'981276f367cd5cf3',t:'MTc1ODIxNTUwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9812d5ea33c8ca0a',t:'MTc1ODIxOTM5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
