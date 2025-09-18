@@ -74,14 +74,11 @@
 </head>
 <body class="antialiased">
   <!-- Nav -->
-  <header class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10">
+  <header id="siteHeader" class="sticky top-0 z-40 backdrop-blur bg-black/40 border-b border-white/10 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center gap-3 flex-nowrap">
       <div class="flex items-center gap-3 flex-shrink-0">
-        <div class="h-9 w-9 rounded-lg bg-cyan-400/20 ring-1 ring-cyan-400/40 grid place-items-center">
-          <svg width="20" height="20" viewBox="0 0 24 24" class="text-cyan-300" fill="currentColor" aria-hidden="true">
-            <path d="M8 7a4 4 0 1 1 8 0v1h-2V7a2 2 0 1 0-4 0v1H8V7z"></path>
-            <path d="M6 10a6 6 0 1 1 12 0v6a6 6 0 1 1-12 0v-6z"></path>
-          </svg>
+        <div class="h-9 w-9 rounded-lg overflow-hidden ring-1 ring-cyan-400/40 bg-white/5">
+          <img src="Gemini_Generated_Image_f35caqf35caqf35c.png" alt="Marca Team Taurus" class="w-full h-full object-cover" onerror="this.src=''; this.alt='Imagem não carregou'; this.style.display='none';" />
         </div>
         <div>
           <p class="title text-xl md:text-2xl text-white tracking-wide">Vinícius Azevedo</p>
@@ -99,8 +96,10 @@
       <button id="btnNavCta" class="btn inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-semibold whitespace-nowrap">
         <span>Agendar consulta</span>
       </button>
+      <button id="backToTop" class="hidden md:inline-flex ml-2 rounded-lg px-3 py-2 bg-white/5 border border-white/10 text-white text-xs hover:bg-white/10">Topo ↑</button>
     </div>
-  </header>
+    <div id="progressBar" class="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-400 to-emerald-400 w-0"></div>
+</header>
 
   <!-- Partículas -->
   <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
@@ -121,6 +120,7 @@
           Resultados reais, sem mimimi
         </div>
         <h1 class="title text-4xl md:text-6xl mt-5 leading-tight text-white">Vinícius <span class="text-cyan-300 neon">Personal Trainer</span></h1>
+<p id="typeLine" class="mt-3 text-cyan-200/90 text-base md:text-lg"></p>
         <p class="text-gray-300 mt-4 md:text-lg max-w-xl">
           Treinos personalizados, orientação de treino e acompanhamento de verdade. Difícil? É. Impossível? Nunca.
         </p>
@@ -180,35 +180,46 @@
     </div>
   </section>
 
+  <!-- Ações flutuantes -->
+  <div id="floatActions" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <button id="floatCta" class="btn rounded-full px-5 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-ink font-bold shadow-lg">Agendar agora</button>
+    <a id="floatWhats" target="_blank" rel="noopener" class="btn rounded-full px-4 py-2 bg-white/5 border border-white/10 text-white hover:bg-white/10 text-sm">WhatsApp</a>
+  </div>
+
   <!-- Benefícios -->
   <section id="beneficios" class="max-w-7xl mx-auto px-6 py-14 md:py-20">
+    <div class="mx-auto max-w-2xl text-center mb-3">
+      <div id="readHint" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300">
+        <span class="h-2 w-2 bg-emerald-400 rounded-full animate-pulse"></span>
+        Continue descendo — tem mais!</div>
+    </div>
     <div class="text-center">
       <h2 class="title text-3xl md:text-5xl text-white">Simples, Direto e que Funciona</h2>
       <p class="text-gray-300 mt-3">Sem frescura: treino inteligente, execução correta e consistência.</p>
     </div>
     <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal">
-      <div class="glass rounded-2xl p-6">
+      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
         <div class="h-10 w-10 grid place-items-center rounded-lg bg-cyan-400/20 text-cyan-300 mb-4">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M3 10h2v4H3v-4zm16 0h2v4h-2v-4zM7 8h2v8H7V8zm8 0h2v8h-2V8zM10 11h4v2h-4v-2z"/></svg>
         </div>
         <p class="text-white font-semibold">Treino sob medida</p>
         <p class="text-gray-300 text-sm mt-1">Planos montados para seu objetivo e rotina.</p>
       </div>
-      <div class="glass rounded-2xl p-6">
+      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
         <div class="h-10 w-10 grid place-items-center rounded-lg bg-emerald-400/20 text-emerald-300 mb-4">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M9 16.2l-3.5-3.5L4 14.2l5 5 11-11-1.4-1.4z"/></svg>
         </div>
         <p class="text-white font-semibold">Técnica e execução</p>
         <p class="text-gray-300 text-sm mt-1">Ajuste de forma para render mais e evitar lesão.</p>
       </div>
-      <div class="glass rounded-2xl p-6">
+      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
         <div class="h-10 w-10 grid place-items-center rounded-lg bg-pink-400/20 text-pink-300 mb-4">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21 8.5c0 5.5-9 12-9 12S3 14 3 8.5A4.5 4.5 0 0 1 7.5 4C9.2 4 10.7 4.8 12 6c1.3-1.2 2.8-2 4.5-2A4.5 4.5 0 0 1 21 8.5z"/></svg>
         </div>
         <p class="text-white font-semibold">Saúde em dia</p>
         <p class="text-gray-300 text-sm mt-1">Energia, sono e disposição alinhados.</p>
       </div>
-      <div class="glass rounded-2xl p-6">
+      <div class="glass rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
         <div class="h-10 w-10 grid place-items-center rounded-lg bg-yellow-400/20 text-yellow-300 mb-4">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2zm1 11h5v-2h-4V7h-2v6z"/></svg>
         </div>
@@ -238,7 +249,7 @@
       <p class="text-gray-300 mt-3">Comece com o que faz sentido pra você. Crescemos juntos.</p>
     </div>
 
-    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 reveal" id="planCards">
       <div class="glass rounded-3xl p-6 flex flex-col min-h-[360px]">
         <div class="flex items-center justify-between">
           <p class="text-white font-semibold">Essencial</p>
@@ -446,7 +457,7 @@
   </div>
 
   <!-- Toast -->
-  <div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50">
+  <div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 drop-shadow-xl">
     <div class="rounded-full px-4 py-2 bg-emerald-500 text-ink font-semibold shadow-lg">Recebido! Já já eu te chamo.</div>
   </div>
 
@@ -543,6 +554,74 @@
       e.target.reset();
       closeContato();
     });
+    // Barra de progresso e header compacto
+    const header = document.getElementById('siteHeader');
+    const progress = document.getElementById('progressBar');
+    const backToTop = document.getElementById('backToTop');
+
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop || document.body.scrollTop;
+      const height = h.scrollHeight - h.clientHeight;
+      const pct = Math.min(100, Math.max(0, (scrolled/height)*100));
+      progress.style.width = pct + '%';
+      if (scrolled > 80) {
+        header.classList.add('bg-black/60');
+        backToTop.classList.remove('hidden');
+      } else {
+        header.classList.remove('bg-black/60');
+        backToTop.classList.add('hidden');
+      }
+      // Mostrar ações flutuantes após 30% de leitura
+      const float = document.getElementById('floatActions');
+      if (pct > 30) { float.classList.remove('opacity-0','pointer-events-none'); }
+      else { float.classList.add('opacity-0','pointer-events-none'); }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Efeito de digitação para frases de prova social
+    const lines = [
+      'Resultados reais, disciplina de atleta.',
+      'Treino sob medida, zero achismo.',
+      'Constância vence motivação. Bora?'
+    ];
+    const typeTarget = document.getElementById('typeLine');
+    let li = 0, ci = 0, deleting = false;
+    function typeLoop(){
+      const current = lines[li];
+      if (!deleting) {
+        typeTarget.textContent = current.slice(0, ci++);
+        if (ci > current.length + 8) deleting = true;
+      } else {
+        typeTarget.textContent = current.slice(0, ci--);
+        if (ci === 0) { deleting = false; li = (li+1)%lines.length; }
+      }
+      const delay = deleting ? 40 : 60;
+      setTimeout(typeLoop, delay);
+    }
+    if(typeTarget) typeLoop();
+
+    // Conectar CTAs flutuantes
+    document.getElementById('floatCta').addEventListener('click', openContato);
+    const floatWhats = document.getElementById('floatWhats');
+    floatWhats.href = whats.href; // mesmo link do header
+
+    // Destaque nos planos ao focar/hover
+    document.getElementById('planCards').addEventListener('mouseover', (e)=>{
+      const card = e.target.closest('.glass');
+      if(!card) return;
+      document.querySelectorAll('#planCards .glass').forEach(c=> c.style.opacity = c===card? '1' : '.6');
+    });
+    document.getElementById('planCards').addEventListener('mouseleave', ()=>{
+      document.querySelectorAll('#planCards .glass').forEach(c=> c.style.opacity = '1');
+    });
+
+    // Dica de leitura some ao rolar
+    const hint = document.getElementById('readHint');
+    const hideHint = () => { if (window.scrollY > 120) hint?.classList.add('hidden'); };
+    window.addEventListener('scroll', hideHint, { passive:true });
   </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9811ae02668ed97a',t:'MTc1ODIwNzI3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'981257c25251b3c6',t:'MTc1ODIxNDIzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
